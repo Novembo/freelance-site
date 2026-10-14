@@ -1,0 +1,19 @@
+﻿services:
+  - type: web
+    name: freelance-site-api
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/testimonials
+    envVars:
+      - key: ADMIN_TOKEN
+        generateValue: true
+      - key: KKIAPAY_SANDBOX
+        value: "true"
+      - key: KKIAPAY_PUBLIC_KEY
+        sync: false
+      - key: KKIAPAY_PRIVATE_KEY
+        sync: false
+      - key: KKIAPAY_SECRET_KEY
+        sync: false
+      - key: ALLOWED_ORIGINS
+        sync: false
