@@ -1,0 +1,6 @@
+.git
+.github
+tests
+backend/data
+backend/.env
+**/__pycache__

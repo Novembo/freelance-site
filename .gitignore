@@ -1,0 +1,18 @@
+# Base de données locale — ne doit jamais être publiée (contient emails, commandes)
+backend/data/
+*.db
+
+# Secrets — jamais commités, voir backend/.env.example pour la liste des variables
+.env
+backend/.env
+
+# Python / tests
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+
+# Système
+.DS_Store
+Thumbs.db
