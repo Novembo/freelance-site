@@ -113,9 +113,7 @@ docker run -p 8000:8000 -v site-data:/data \
 
 ### Frontend (GitHub Pages)
 
-1. Sur GitHub : **Settings → Pages → Source : GitHub Actions**.
-2. **Settings → Secrets and variables → Actions → Variables** : crée `API_BASE` = `https://TON-SERVICE.onrender.com` (sans slash final).
-3. `git push` sur `main` : le workflow remplace `__API_BASE__` dans la page et la publie. Sans cette variable, le site s'affiche mais n'atteint pas l'API (un avertissement apparaît dans le workflow).
+GitHub Pages est configuré pour publier avec GitHub Actions. La variable de dépôt `API_BASE` pointe actuellement vers `https://freelance-site-api.onrender.com`; le workflow remplace `__API_BASE__` dans la page et publie le site à chaque push sur `main`. Si l'URL de l'API change, mettez à jour cette variable dans **Settings → Secrets and variables → Actions → Variables**.
 
 ### Première publication sur GitHub
 
