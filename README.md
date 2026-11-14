@@ -1,5 +1,8 @@
 # Site vitrine — Obed VODOUHE
 
+[![CI](https://github.com/Novembo/freelance-site/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Novembo/freelance-site/actions/workflows/ci.yml)
+[![GitHub Pages](https://github.com/Novembo/freelance-site/actions/workflows/deploy-pages.yml/badge.svg?branch=main)](https://github.com/Novembo/freelance-site/actions/workflows/deploy-pages.yml)
+
 Site freelance pour mettre en avant les services d'un développeur Full-Stack Python (revue de code, API REST, tests, documentation, projets web/mobile complets), avec commandes en base de données, témoignages modérés, devis sur mesure, facturation, et paiement Mobile Money (MTN Mobile Money, Celtiis Cash) ou carte via Kkiapay — **vérifié côté serveur**, acompte de 70 % systématique.
 
 **Stack :** FastAPI · SQLite · Vue 3 + Bootstrap (sans étape de build) · Kkiapay · pytest · Docker · GitHub Actions
@@ -46,6 +49,10 @@ python -m pytest -q
 ```
 
 Les tests couvrent : calcul de l'acompte côté serveur, refus des prix envoyés par le client, flux devis sur mesure, modération des témoignages, vérification du paiement (montant, rejeu de transaction, nouvelle tentative), jeton admin, CORS, échappement HTML de la facture, et absence de fuite de fichiers privés (`.env`, base, code source).
+
+## CI/CD
+
+`ci.yml` exécute les tests Python sur chaque push et pull request. `deploy-pages.yml` publie `public/index.html` sur GitHub Pages après un push sur `main`; il remplace `__API_BASE__` avec la variable Actions `API_BASE`. Le backend reste déployé séparément sur Render.
 
 ## 4. Paiement — acompte de 70 %
 
