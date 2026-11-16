@@ -12,6 +12,14 @@ Ce projet est pensé pour montrer trois choses :
 
 **Stack :** FastAPI · SQLite · Vue 3 + Bootstrap (sans étape de build) · Kkiapay · pytest · Docker · GitHub Actions
 
+## Démo déployée
+
+- **Site :** [novembo.github.io/freelance-site](https://novembo.github.io/freelance-site/)
+- **API :** [freelance-site-api.onrender.com](https://freelance-site-api.onrender.com/docs)
+- **Vérification API :** [`GET /api/testimonials`](https://freelance-site-api.onrender.com/api/testimonials)
+
+GitHub Pages injecte l’URL de l’API via la variable Actions `API_BASE`; l’API autorise l’origine du site dans `ALLOWED_ORIGINS`. La configuration Render actuelle utilise Kkiapay en mode sandbox et SQLite : cette démo n’est pas destinée à recevoir de vrais paiements ni des commandes à conserver.
+
 ## Pourquoi ce projet est crédible
 
 - processus de commande et de paiement vérifié côté serveur,
@@ -54,17 +62,32 @@ Ouvre `public/index.html` dans ton navigateur. Services, tarifs et animations fo
 
 ## 2. Lancer en local
 
+### Windows (PowerShell)
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements-dev.txt
+Copy-Item backend\.env.example backend\.env
+Set-Location backend
+python -m uvicorn main:app --reload
+```
+
+### Linux / macOS (Bash)
+
 ```bash
-python -m venv .venv && source .venv/bin/activate
+python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements-dev.txt
 cp backend/.env.example backend/.env     # puis renseigne ADMIN_TOKEN au minimum
 cd backend
-uvicorn main:app --reload
+python -m uvicorn main:app --reload
 ```
 
 Ouvre http://127.0.0.1:8000/ — le backend sert le site (`public/`) et l'API ensemble, et crée `backend/data/site.db` au premier lancement. La documentation interactive de l'API est sur http://127.0.0.1:8000/docs.
 
 ## 3. Tests
+
+Depuis la racine du dépôt (après avoir démarré ou arrêté le serveur local) :
 
 ```bash
 python -m pytest -q
@@ -74,7 +97,7 @@ Les tests couvrent : calcul de l'acompte côté serveur, refus des prix envoyés
 
 ## CI/CD
 
-`ci.yml` exécute les tests Python sur chaque push et pull request. `deploy-pages.yml` publie `public/index.html` sur GitHub Pages après un push sur `main`; il remplace `__API_BASE__` avec la variable Actions `API_BASE`. Le backend reste déployé séparément sur Render.
+`ci.yml` exécute les tests Python sur chaque push et pull request. `deploy-pages.yml` publie `public/index.html` sur GitHub Pages après un push sur `main`; il remplace `__API_BASE__` avec la variable Actions `API_BASE`. Le backend reste déployé séparément sur Render. Vérifie que cette variable et `ALLOWED_ORIGINS` correspondent aux URL de production après tout changement de domaine.
 
 ## 4. Paiement — acompte de 70 %
 
@@ -117,7 +140,7 @@ Avant la mise en production réelle, dans `public/index.html` : remplace `REMPLA
 
 ### Backend (Render, Railway…)
 
-**Important :** SQLite est un fichier. Sur un disque éphémère (plan gratuit sans volume), **les commandes sont effacées à chaque redéploiement**. Monte un volume/disque persistant (ex. `/data`) et définis `DB_PATH=/data/site.db`. Pour une démonstration de portfolio, le disque éphémère suffit, mais ne prends pas de vraies commandes dessus.
+**Important :** SQLite est un fichier. Sur un disque éphémère (plan gratuit sans volume), **les commandes peuvent être perdues lors d’un redéploiement**. Monte un volume/disque persistant (ex. `/data`) et définis `DB_PATH=/data/site.db` avant tout usage réel. La configuration de démo actuelle garde Kkiapay en sandbox; ne l’utilise pas pour accepter de vrais paiements.
 
 Sur Render (Web Service lié au dépôt GitHub), au choix :
 - **Runtime Docker :** Render utilise le `Dockerfile` du dépôt.
