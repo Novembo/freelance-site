@@ -3,14 +3,15 @@
 [![CI](https://github.com/Novembo/freelance-site/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Novembo/freelance-site/actions/workflows/ci.yml)
 [![GitHub Pages](https://github.com/Novembo/freelance-site/actions/workflows/deploy-pages.yml/badge.svg?branch=main)](https://github.com/Novembo/freelance-site/actions/workflows/deploy-pages.yml)
 
-Site freelance conçu comme un showcase professionnel d’un développeur Python Full-Stack : API REST, paiement sécurisé, devis sur mesure, commandes, témoignages, tests automatisés, et communication claire avec le client.
+Site vitrine freelance full-stack : interface en **HTML, CSS et JavaScript** (Vue 3 et Bootstrap, sans compilation) et API REST en **Python** (FastAPI, SQLite). Le projet couvre les demandes de devis, les commandes, les témoignages et l’intégration Kkiapay, avec vérification des transactions côté serveur.
 
 Ce projet est pensé pour montrer trois choses :
 - que je conçois et livre des API backend fiables,
 - que je peux intégrer une maquette ou un cahier des charges en interface web / mobile,
 - que je travaille avec une logique de livraison plus proche d’un service client professionnel que d’une simple démo technique.
 
-**Stack :** FastAPI · SQLite · Vue 3 + Bootstrap (sans étape de build) · Kkiapay · pytest · Docker · GitHub Actions
+- **Langages :** HTML · CSS · JavaScript · Python
+- **Technologies :** Vue 3 · Bootstrap · FastAPI · SQLite · Kkiapay · pytest · Docker · GitHub Actions
 
 ## Démo déployée
 
@@ -19,6 +20,8 @@ Ce projet est pensé pour montrer trois choses :
 - **Vérification API :** [`GET /api/testimonials`](https://freelance-site-api.onrender.com/api/testimonials)
 
 GitHub Pages injecte l’URL de l’API via la variable Actions `API_BASE`; l’API autorise l’origine du site dans `ALLOWED_ORIGINS`. La configuration Render actuelle utilise Kkiapay en mode sandbox et SQLite : cette démo n’est pas destinée à recevoir de vrais paiements ni des commandes à conserver.
+
+GitHub Pages est l’hébergement principal du frontend statique. Le service Render sert l’API et, actuellement, sert aussi le même fichier `public/index.html` à la racine (`/`). Ce doublon n’ajoute pas un second service Render — l’API reste nécessaire — mais duplique la livraison de la page. Pour un hébergement strictement séparé, Pages peut rester le frontend unique et Render être limité à l’API.
 
 ## Pourquoi ce projet est crédible
 
