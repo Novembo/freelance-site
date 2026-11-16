@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Obed VODOUHE — Développeur Full-Stack Python</title>
 <meta name="description" content="Revue de code, développement d'API REST, tests, et projets web ou mobile complets en Python, par Obed VODOUHE, développeur Full-Stack freelance.">
+<meta name="keywords" content="Obed VODOUHE, développeur Python, backend FastAPI, Django, API REST, sécurité backend, tests automatisés, freelance, web, mobile, Kkiapay">
+<meta property="og:title" content="Obed VODOUHE — Développeur Python & Full-Stack">
+<meta property="og:description" content="API REST, sécurité backend, intégration web & mobile, tests, livraison professionnelle avec Python.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0D1321">
 
 <!-- Bootstrap (mise en page & composants uniquement — l'identité visuelle est surchargée ci-dessous) -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -294,6 +299,24 @@
       </div>
       <div class="scope-note">
         <b>Hors périmètre actuellement :</b> GraphQL. Je reste concentré sur le REST — c'est ce que je maîtrise et livre bien.
+      </div>
+    </div>
+  </section>
+
+  <!-- MÉTHODOLOGIE -->
+  <section id="methodologie">
+    <div class="container">
+      <div class="eyebrow">GET /process</div>
+      <h2 class="section-title">Une méthode de travail claire et professionnelle</h2>
+      <p class="section-sub mb-5">Je structure le travail pour que le client comprenne le chemin, les délais, les livrables et les risques depuis le premier échange.</p>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-3" v-for="(step, index) in workflowSteps" :key="step.title">
+          <div class="card-flat">
+            <div class="endpoint-tag">0{{ index + 1 }}</div>
+            <h3>{{ step.title }}</h3>
+            <p>{{ step.text }}</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -610,6 +633,12 @@ createApp({
         { path:'/rest-api', title:'Développement API REST', desc:"Conception et implémentation d'API avec FastAPI ou Django — endpoints, auth, permissions." },
         { path:'/tests', title:'Tests automatisés', desc:"Mise en place de tests unitaires et d'intégration pour sécuriser tes déploiements." },
         { path:'/api-docs', title:'Documentation d\'API', desc:"Documentation claire de tes endpoints pour que ton équipe (ou tes clients) s'y retrouve." },
+      ],
+      workflowSteps: [
+        { title:'Diagnostic', text:'On clarifie le besoin, les objectifs, les contraintes techniques et les risques métier.' },
+        { title:'Plan', text:'Je propose une architecture simple, des livrables clairs, les délais et les limites du projet.' },
+        { title:'Livraison', text:'Je développe, je teste, je sécurise et je documente les points importants avant mise en ligne.' },
+        { title:'Suivi', text:'Je garde une communication claire après livraison pour corriger les défauts et sécuriser la maintenance.' },
       ],
       skillGroups: [
         { name:'Backend', items:['Python','Django','FastAPI','REST API','JWT','RBAC'] },

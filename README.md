@@ -3,9 +3,31 @@
 [![CI](https://github.com/Novembo/freelance-site/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Novembo/freelance-site/actions/workflows/ci.yml)
 [![GitHub Pages](https://github.com/Novembo/freelance-site/actions/workflows/deploy-pages.yml/badge.svg?branch=main)](https://github.com/Novembo/freelance-site/actions/workflows/deploy-pages.yml)
 
-Site freelance pour mettre en avant les services d'un développeur Full-Stack Python (revue de code, API REST, tests, documentation, projets web/mobile complets), avec commandes en base de données, témoignages modérés, devis sur mesure, facturation, et paiement Mobile Money (MTN Mobile Money, Celtiis Cash) ou carte via Kkiapay — **vérifié côté serveur**, acompte de 70 % systématique.
+Site freelance conçu comme un showcase professionnel d’un développeur Python Full-Stack : API REST, paiement sécurisé, devis sur mesure, commandes, témoignages, tests automatisés, et communication claire avec le client.
+
+Ce projet est pensé pour montrer trois choses :
+- que je conçois et livre des API backend fiables,
+- que je peux intégrer une maquette ou un cahier des charges en interface web / mobile,
+- que je travaille avec une logique de livraison plus proche d’un service client professionnel que d’une simple démo technique.
 
 **Stack :** FastAPI · SQLite · Vue 3 + Bootstrap (sans étape de build) · Kkiapay · pytest · Docker · GitHub Actions
+
+## Pourquoi ce projet est crédible
+
+- processus de commande et de paiement vérifié côté serveur,
+- logique de 70 % à la réservation et 30 % à la livraison,
+- flux de devis sur mesure avec validation manuelle,
+- messages de contact et témoignages gérés par l’API,
+- structure orientée “client + livraison + preuve de qualité”.
+
+## Méthodologie de travail
+
+1. Diagnostic du besoin et des contraintes.
+2. Proposition d’architecture claire, coûts et livrables.
+3. Développement avec tests, validation et sécurisation.
+4. Livraison, suivi et correction des défauts identifiés.
+
+Ce projet sert donc à présenter une vraie logique de service numérique : clarifier, sécuriser, livrer, puis soutenir le client après mise en production.
 
 ## Structure
 
