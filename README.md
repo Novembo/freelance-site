@@ -21,7 +21,7 @@ Ce projet est pensé pour montrer trois choses :
 
 GitHub Pages injecte l’URL de l’API via la variable Actions `API_BASE`; l’API autorise l’origine du site dans `ALLOWED_ORIGINS`. La configuration Render actuelle utilise Kkiapay en mode sandbox et SQLite : cette démo n’est pas destinée à recevoir de vrais paiements ni des commandes à conserver.
 
-GitHub Pages est l’hébergement principal du frontend statique. Le service Render sert l’API et, actuellement, aussi le build compilé du frontend à la racine (`/`). Ce doublon n’ajoute pas un second service Render — l’API reste nécessaire — mais duplique la livraison de la page. Pour un hébergement strictement séparé, Pages peut rester le frontend unique et Render être limité à l’API.
+GitHub Pages héberge le frontend public. Render est réservé à l’API et aux factures générées ; sa racine (`/`) ne sert pas le site. Cette séparation évite de distribuer deux fois le frontend tout en conservant Render pour les fonctionnalités backend.
 
 ## Pourquoi ce projet est crédible
 
@@ -68,7 +68,7 @@ Ce projet sert donc à présenter une vraie logique de service numérique : clar
 
 ## 1. Lancer le frontend
 
-Le frontend utilise des modules locaux et doit être lancé avec Vite (ne pas ouvrir `public/index.html` directement). Les pages et animations fonctionnent sans API ; le contact, les commandes, les témoignages et le paiement nécessitent le backend.
+Le frontend utilise des modules locaux et doit être lancé avec Vite (ne pas ouvrir `public/index.html` directement). Les pages et animations fonctionnent sans API ; le contact, les commandes, les témoignages et le paiement nécessitent le backend. Le backend local ne sert que l’API et les factures, comme le service Render.
 
 ## 2. Lancer en local
 
@@ -125,7 +125,7 @@ Les tests couvrent : calcul de l'acompte côté serveur, refus des prix envoyés
 
 ## CI/CD
 
-`ci.yml` installe les dépendances verrouillées, vérifie le build Vite, construit l’image Docker et exécute les tests Python sur chaque push et pull request. `deploy-pages.yml` compile le frontend puis publie `dist/` sur GitHub Pages après un push sur `main`; il remplace `__API_BASE__` avec la variable Actions `API_BASE`. Le backend reste déployé séparément sur Render.
+`ci.yml` installe les dépendances verrouillées, vérifie le build Vite, construit l’image Docker de l’API et exécute les tests Python sur chaque push et pull request. Les tests vérifient que l’API répond et que la racine Render ne sert pas le site. `deploy-pages.yml` compile le frontend puis publie `dist/` sur GitHub Pages après un push sur `main`; il remplace `__API_BASE__` avec la variable Actions `API_BASE`.
 
 ## 4. Paiement — acompte de 70 %
 
@@ -170,9 +170,7 @@ Avant la mise en production réelle, dans `public/src/main.js` : remplace `REMPL
 
 **Important :** SQLite est un fichier. Sur un disque éphémère (plan gratuit sans volume), **les commandes peuvent être perdues lors d’un redéploiement**. Monte un volume/disque persistant (ex. `/data`) et définis `DB_PATH=/data/site.db` avant tout usage réel. La configuration de démo actuelle garde Kkiapay en sandbox; ne l’utilise pas pour accepter de vrais paiements.
 
-Sur Render (Web Service lié au dépôt GitHub), au choix :
-- **Runtime Docker (recommandé) :** Render utilise le `Dockerfile` du dépôt, qui compile les assets avec Node puis sert le build avec FastAPI.
-- **Runtime Python :** le *Build* doit installer les dépendances backend **et** compiler le frontend (`pip install -r backend/requirements.txt && npm ci && npm run build`) ; *Start* : `cd backend && uvicorn main:app --host 0.0.0.0 --port $PORT`.
+Sur Render (Web Service lié au dépôt GitHub), le runtime Docker utilise le `Dockerfile` du dépôt pour exécuter l’API FastAPI uniquement. La racine `https://TON-SERVICE.onrender.com/` renvoie une réponse 404 ; utilise `/docs` pour la documentation interactive et `/api/...` pour les endpoints. Le frontend reste exclusivement publié sur GitHub Pages.
 
 Renseigne ensuite les variables du §6 (`ALLOWED_ORIGINS` = l'URL de ton site GitHub Pages) et teste `https://TON-SERVICE.onrender.com/docs`. Le plan gratuit s'endort après inactivité : le premier appel peut prendre environ une minute.
 
@@ -183,6 +181,8 @@ docker build -t site-obed .
 docker run -p 8000:8000 -v site-data:/data \
   -e ADMIN_TOKEN=... -e KKIAPAY_SANDBOX=true site-obed
 ```
+
+Cette image contient uniquement le backend : `/docs` expose la documentation de l’API et `/` ne sert aucun frontend.
 
 ### Frontend (GitHub Pages)
 

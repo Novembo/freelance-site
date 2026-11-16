@@ -7,10 +7,12 @@ def test_admin_requires_valid_token(client, admin):
     assert client.get("/api/admin/orders", headers=admin).status_code == 200
 
 
-def test_private_files_are_not_served(client):
+def test_api_does_not_serve_frontend_or_private_files(client):
     for path in ("/backend/.env", "/backend/main.py", "/backend/data/test.db", "/README.md", "/.git/config", "/Dockerfile"):
         assert client.get(path).status_code == 404, path
-    assert client.get("/").status_code == 200  # le site, lui, reste servi
+    assert client.get("/").status_code == 404  # Render sert uniquement l'API.
+    assert client.get("/docs").status_code == 200
+    assert client.get("/api/testimonials").status_code == 200
 
 
 def test_cors_only_allows_configured_origin(client):

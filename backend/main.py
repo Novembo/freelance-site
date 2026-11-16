@@ -35,7 +35,6 @@ from pathlib import Path
 
 from fastapi import FastAPI, HTTPException, Header
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel, EmailStr, Field
 
@@ -47,7 +46,6 @@ except ImportError:
 
 import database
 
-BASE_DIR = Path(__file__).resolve().parent
 DEPOSIT_RATE = 0.70  # 70% à la réservation, pour toutes les commandes
 
 app = FastAPI(title="Obed VODOUHE — API du site vitrine")
@@ -525,14 +523,5 @@ def admin_approve_testimonial(testimonial_id: int, x_admin_token: str | None = H
     return {"status": "approved"}
 
 
-# ---------- Servir le site statique ----------
-# Le build Vite est servi en production. Le dossier source reste un fallback
-# pour les tests et les installations backend sans build frontend.
-
-# IMPORTANT : on ne sert QUE le dossier public/. Servir la racine du dépôt
-# exposerait backend/.env, la base SQLite et le code source.
-SITE_DIR = BASE_DIR.parent / "dist"
-if not SITE_DIR.exists():
-    SITE_DIR = BASE_DIR.parent / "public"
-if (SITE_DIR / "index.html").exists():
-    app.mount("/", StaticFiles(directory=str(SITE_DIR), html=True), name="site")
+# Le frontend est publié uniquement sur GitHub Pages ; ce service ne fournit
+# que l'API et les factures générées.
