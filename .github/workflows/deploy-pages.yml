@@ -1,7 +1,7 @@
 name: Publier le site sur GitHub Pages
 
 # Se déclenche automatiquement à chaque push sur main.
-# Ne publie que le frontend statique (public/index.html) — pas le dossier backend/,
+# Ne publie que le frontend compilé (dist/) — pas le dossier backend/,
 # qui doit tourner ailleurs (voir README.md).
 #
 # Réglage requis : Settings → Secrets and variables → Actions → onglet Variables
@@ -31,12 +31,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Préparer le dossier à publier (frontend uniquement)
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Compiler le frontend
         run: |
-          mkdir _site
-          cp public/index.html _site/
+          npm ci
+          npm run build
+
+      - name: Configurer l'URL de l'API
+        run: |
           if [ -n "$API_BASE" ]; then
-            sed -i "s|__API_BASE__|${API_BASE%/}|g" _site/index.html
+            sed -i "s|__API_BASE__|${API_BASE%/}|g" dist/index.html
           else
             echo "::warning::Variable API_BASE absente : le site publié n'atteindra pas l'API."
           fi
@@ -45,7 +53,7 @@ jobs:
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: _site
+          path: dist
 
       - id: deployment
         uses: actions/deploy-pages@v4

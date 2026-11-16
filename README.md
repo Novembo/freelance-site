@@ -3,7 +3,7 @@
 [![CI](https://github.com/Novembo/freelance-site/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Novembo/freelance-site/actions/workflows/ci.yml)
 [![GitHub Pages](https://github.com/Novembo/freelance-site/actions/workflows/deploy-pages.yml/badge.svg?branch=main)](https://github.com/Novembo/freelance-site/actions/workflows/deploy-pages.yml)
 
-Site vitrine freelance full-stack : interface en **HTML, CSS et JavaScript** (Vue 3 et Bootstrap, sans compilation) et API REST en **Python** (FastAPI, SQLite). Le projet couvre les demandes de devis, les commandes, les témoignages et l’intégration Kkiapay, avec vérification des transactions côté serveur.
+Site vitrine freelance full-stack : interface en **HTML, CSS et JavaScript** (Vue 3, Bootstrap 5 et Vite) et API REST en **Python** (FastAPI, SQLite). Vue et Bootstrap sont installés et compilés localement ; le SDK de paiement Kkiapay reste chargé depuis son fournisseur. Le projet couvre les demandes de devis, les commandes, les témoignages et la vérification des transactions côté serveur.
 
 Ce projet est pensé pour montrer trois choses :
 - que je conçois et livre des API backend fiables,
@@ -11,7 +11,7 @@ Ce projet est pensé pour montrer trois choses :
 - que je travaille avec une logique de livraison plus proche d’un service client professionnel que d’une simple démo technique.
 
 - **Langages :** HTML · CSS · JavaScript · Python
-- **Technologies :** Vue 3 · Bootstrap · FastAPI · SQLite · Kkiapay · pytest · Docker · GitHub Actions
+- **Technologies :** Vue 3 · Bootstrap 5 · Vite · FastAPI · SQLite · Kkiapay · pytest · Docker · GitHub Actions
 
 ## Démo déployée
 
@@ -21,7 +21,7 @@ Ce projet est pensé pour montrer trois choses :
 
 GitHub Pages injecte l’URL de l’API via la variable Actions `API_BASE`; l’API autorise l’origine du site dans `ALLOWED_ORIGINS`. La configuration Render actuelle utilise Kkiapay en mode sandbox et SQLite : cette démo n’est pas destinée à recevoir de vrais paiements ni des commandes à conserver.
 
-GitHub Pages est l’hébergement principal du frontend statique. Le service Render sert l’API et, actuellement, sert aussi le même fichier `public/index.html` à la racine (`/`). Ce doublon n’ajoute pas un second service Render — l’API reste nécessaire — mais duplique la livraison de la page. Pour un hébergement strictement séparé, Pages peut rester le frontend unique et Render être limité à l’API.
+GitHub Pages est l’hébergement principal du frontend statique. Le service Render sert l’API et, actuellement, aussi le build compilé du frontend à la racine (`/`). Ce doublon n’ajoute pas un second service Render — l’API reste nécessaire — mais duplique la livraison de la page. Pour un hébergement strictement séparé, Pages peut rester le frontend unique et Render être limité à l’API.
 
 ## Pourquoi ce projet est crédible
 
@@ -44,7 +44,11 @@ Ce projet sert donc à présenter une vraie logique de service numérique : clar
 
 ```
 ├── public/
-│   └── index.html            → le site (seul dossier servi au public)
+│   ├── index.html            → structure HTML de la page
+│   └── src/
+│       ├── main.js           → application Vue et composants Bootstrap
+│       └── style.css         → styles et animations personnalisés
+├── dist/                     → build frontend (généré, non versionné)
 ├── backend/
 │   ├── main.py               → API FastAPI (contact, commandes, devis, témoignages, paiement, facture, admin)
 │   ├── database.py           → base SQLite (contacts, orders, testimonials)
@@ -52,20 +56,25 @@ Ce projet sert donc à présenter une vraie logique de service numérique : clar
 │   └── .env.example          → variables d'environnement à renseigner
 ├── tests/                    → 17 tests pytest (commandes, paiement, sécurité)
 ├── .github/workflows/
-│   ├── ci.yml                → lance les tests à chaque push
-│   └── deploy-pages.yml      → publie public/index.html sur GitHub Pages
+│   ├── ci.yml                → build frontend, image Docker et tests Python
+│   └── deploy-pages.yml      → compile et publie le frontend sur GitHub Pages
 ├── Dockerfile
+├── package.json              → scripts et dépendances frontend
+├── package-lock.json         → versions verrouillées
+├── vite.config.js            → build, base GitHub Pages et proxy API local
 ├── requirements-dev.txt      → dépendances + pytest
 └── README.md
 ```
 
-## 1. Voir le site sans backend
+## 1. Lancer le frontend
 
-Ouvre `public/index.html` dans ton navigateur. Services, tarifs et animations fonctionnent ; contact, commandes, témoignages et paiement nécessitent le backend.
+Le frontend utilise des modules locaux et doit être lancé avec Vite (ne pas ouvrir `public/index.html` directement). Les pages et animations fonctionnent sans API ; le contact, les commandes, les témoignages et le paiement nécessitent le backend.
 
 ## 2. Lancer en local
 
 ### Windows (PowerShell)
+
+Terminal 1 — backend :
 
 ```powershell
 py -m venv .venv
@@ -76,7 +85,16 @@ Set-Location backend
 python -m uvicorn main:app --reload
 ```
 
+Terminal 2 — frontend, depuis la racine du dépôt :
+
+```powershell
+npm ci
+npm run dev
+```
+
 ### Linux / macOS (Bash)
+
+Terminal 1 — backend :
 
 ```bash
 python3 -m venv .venv && source .venv/bin/activate
@@ -86,7 +104,14 @@ cd backend
 python -m uvicorn main:app --reload
 ```
 
-Ouvre http://127.0.0.1:8000/ — le backend sert le site (`public/`) et l'API ensemble, et crée `backend/data/site.db` au premier lancement. La documentation interactive de l'API est sur http://127.0.0.1:8000/docs.
+Terminal 2 — frontend, depuis la racine du dépôt :
+
+```bash
+npm ci
+npm run dev
+```
+
+Ouvre http://127.0.0.1:5173/ pour le site. Vite transmet les appels `/api` et `/invoice` au backend sur le port 8000. La documentation interactive de l'API est sur http://127.0.0.1:8000/docs ; la base SQLite locale est créée au premier lancement.
 
 ## 3. Tests
 
@@ -100,7 +125,7 @@ Les tests couvrent : calcul de l'acompte côté serveur, refus des prix envoyés
 
 ## CI/CD
 
-`ci.yml` exécute les tests Python sur chaque push et pull request. `deploy-pages.yml` publie `public/index.html` sur GitHub Pages après un push sur `main`; il remplace `__API_BASE__` avec la variable Actions `API_BASE`. Le backend reste déployé séparément sur Render. Vérifie que cette variable et `ALLOWED_ORIGINS` correspondent aux URL de production après tout changement de domaine.
+`ci.yml` installe les dépendances verrouillées, vérifie le build Vite, construit l’image Docker et exécute les tests Python sur chaque push et pull request. `deploy-pages.yml` compile le frontend puis publie `dist/` sur GitHub Pages après un push sur `main`; il remplace `__API_BASE__` avec la variable Actions `API_BASE`. Le backend reste déployé séparément sur Render.
 
 ## 4. Paiement — acompte de 70 %
 
@@ -137,7 +162,7 @@ Tous les endpoints `/api/admin/...` exigent l'en-tête `X-Admin-Token`.
 | `ALLOWED_ORIGINS` | URL(s) du site autorisées à appeler l'API, ex. `https://TON-COMPTE.github.io` |
 | `DB_PATH` | emplacement de la base SQLite (volume persistant en production) |
 
-Avant la mise en production réelle, dans `public/index.html` : remplace `REMPLACE_PAR_TA_CLE_PUBLIQUE_KKIAPAY` par ta clé publique et passe `sandbox: true` à `false`. Ajuste aussi les tarifs (`plans` dans `index.html`, `PRICING` dans `backend/main.py`).
+Avant la mise en production réelle, dans `public/src/main.js` : remplace `REMPLACE_PAR_TA_CLE_PUBLIQUE_KKIAPAY` par ta clé publique et passe `sandbox: true` à `false`. Ajuste aussi les tarifs (`plans` dans `main.js`, `PRICING` dans `backend/main.py`).
 
 ## 7. Déploiement
 
@@ -146,8 +171,8 @@ Avant la mise en production réelle, dans `public/index.html` : remplace `REMPLA
 **Important :** SQLite est un fichier. Sur un disque éphémère (plan gratuit sans volume), **les commandes peuvent être perdues lors d’un redéploiement**. Monte un volume/disque persistant (ex. `/data`) et définis `DB_PATH=/data/site.db` avant tout usage réel. La configuration de démo actuelle garde Kkiapay en sandbox; ne l’utilise pas pour accepter de vrais paiements.
 
 Sur Render (Web Service lié au dépôt GitHub), au choix :
-- **Runtime Docker :** Render utilise le `Dockerfile` du dépôt.
-- **Runtime Python :** *Build* `pip install -r backend/requirements.txt` — *Start* `cd backend && uvicorn main:app --host 0.0.0.0 --port $PORT`.
+- **Runtime Docker (recommandé) :** Render utilise le `Dockerfile` du dépôt, qui compile les assets avec Node puis sert le build avec FastAPI.
+- **Runtime Python :** le *Build* doit installer les dépendances backend **et** compiler le frontend (`pip install -r backend/requirements.txt && npm ci && npm run build`) ; *Start* : `cd backend && uvicorn main:app --host 0.0.0.0 --port $PORT`.
 
 Renseigne ensuite les variables du §6 (`ALLOWED_ORIGINS` = l'URL de ton site GitHub Pages) et teste `https://TON-SERVICE.onrender.com/docs`. Le plan gratuit s'endort après inactivité : le premier appel peut prendre environ une minute.
 
@@ -161,7 +186,7 @@ docker run -p 8000:8000 -v site-data:/data \
 
 ### Frontend (GitHub Pages)
 
-GitHub Pages est configuré pour publier avec GitHub Actions. La variable de dépôt `API_BASE` pointe actuellement vers `https://freelance-site-api.onrender.com`; le workflow remplace `__API_BASE__` dans la page et publie le site à chaque push sur `main`. Si l'URL de l'API change, mettez à jour cette variable dans **Settings → Secrets and variables → Actions → Variables**.
+GitHub Pages est configuré pour publier avec GitHub Actions. La variable de dépôt `API_BASE` pointe actuellement vers `https://freelance-site-api.onrender.com`; le workflow remplace `__API_BASE__` dans `dist/index.html` et publie le site à chaque push sur `main`. Si l'URL de l'API change, mettez à jour cette variable dans **Settings → Secrets and variables → Actions → Variables**.
 
 ### Première publication sur GitHub
 

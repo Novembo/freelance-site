@@ -526,13 +526,13 @@ def admin_approve_testimonial(testimonial_id: int, x_admin_token: str | None = H
 
 
 # ---------- Servir le site statique ----------
-# Pratique pour tester en local : lance "uvicorn main:app --reload" et
-# ouvre http://127.0.0.1:8000/ — le site et l'API tournent ensemble.
-# En production tu peux aussi héberger public/index.html séparément (GitHub
-# Pages, LWS/cPanel) et renseigner l'URL de ce backend (voir README.md).
+# Le build Vite est servi en production. Le dossier source reste un fallback
+# pour les tests et les installations backend sans build frontend.
 
 # IMPORTANT : on ne sert QUE le dossier public/. Servir la racine du dépôt
 # exposerait backend/.env, la base SQLite et le code source.
-SITE_DIR = BASE_DIR.parent / "public"
+SITE_DIR = BASE_DIR.parent / "dist"
+if not SITE_DIR.exists():
+    SITE_DIR = BASE_DIR.parent / "public"
 if (SITE_DIR / "index.html").exists():
     app.mount("/", StaticFiles(directory=str(SITE_DIR), html=True), name="site")
