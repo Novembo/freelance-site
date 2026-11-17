@@ -221,7 +221,7 @@ section:nth-of-type(even){ background:rgba(255,255,255,.62); }
   .proof-strip{ padding:1.5rem 0; background:#E9F1F0; border-top:1px solid #D7E3E1; border-bottom:1px solid #D7E3E1; }
   .proof-grid{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1rem; }
   .proof-metric{ display:flex; flex-direction:column; align-items:center; gap:.2rem; text-align:center; }
-  .proof-metric strong{ color:var(--ink); font-size:clamp(1.7rem,3vw,2.25rem); font-weight:800; letter-spacing:-.04em; line-height:1.1; }
+  .proof-metric strong{ color:var(--ink); font-size:clamp(2.25rem,5vw,3.25rem); font-weight:800; letter-spacing:-.045em; line-height:1; }
   .count-up{ font-variant-numeric:tabular-nums; }
   .proof-metric span{ color:var(--muted); font-size:.82rem; font-weight:600; }
   .project-filters{ display:flex; flex-wrap:wrap; gap:.55rem; margin-bottom:1.5rem; }
