@@ -199,8 +199,11 @@ section:nth-of-type(even){ background:rgba(255,255,255,.62); }
   .workflow-card{ padding:1.7rem; }
   .step-number{
     display:grid; place-items:center; width:42px; height:42px; margin-bottom:1.2rem;
-    border-radius:14px; color:#08756F; background:#E8F5F2; font:700 .8rem var(--mono);
+    border-radius:14px; color:#08756F; background:#E8F5F2;
   }
+  .step-number svg{ width:21px; height:21px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+  .workflow-card:hover .step-number{ color:#fff; background:var(--wire); transform:translateY(-2px); }
+  .step-number{ transition:background-color .22s ease,color .22s ease,transform .22s ease; }
 
   /* Skills */
   .skills-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr)); gap:1rem; }
