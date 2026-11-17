@@ -49,6 +49,7 @@ createApp({
       trackedOrder: null,
       trackingStatus: { ok:false, msg:'' },
       currentOrderRef: null,
+      revealObserver: null,
     }
   },
   computed:{
@@ -58,6 +59,7 @@ createApp({
     this.typeText();
     this.buildTerminal();
     this.fetchTestimonials();
+    this.observeReveals();
 
     // Si le lien contient ?order=xxx (envoyé par Obed après un devis), on vérifie direct
     const params = new URLSearchParams(window.location.search);
@@ -77,7 +79,29 @@ createApp({
       });
     }
   },
+  beforeUnmount(){
+    if (this.revealObserver) this.revealObserver.disconnect();
+    document.documentElement.classList.remove('motion-ready');
+  },
   methods:{
+    observeReveals(){
+      if (!window.IntersectionObserver || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const appRoot = document.getElementById('app');
+      const targets = appRoot ? appRoot.querySelectorAll('[data-reveal]') : [];
+      if (!targets.length) return;
+
+      this.revealObserver = new window.IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold:0.12, rootMargin:'0px 0px -48px 0px' });
+
+      document.documentElement.classList.add('motion-ready');
+      targets.forEach(target => this.revealObserver.observe(target));
+    },
     typeText(){
       let i = 0;
       const step = () => {

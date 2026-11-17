@@ -48,20 +48,27 @@
     <div class="container">
       <div class="row align-items-center g-5">
         <div class="col-lg-6">
-          <div class="eyebrow">développeur full-stack python · freelance · cotonou</div>
-          <h1 class="mb-3">Des applications Python <span class="accent">solides</span>, livrées sans détour.</h1>
-          <p class="hero-lead">{{ typedText }}<span class="cursor" :style="{height: '1.1em'}"></span></p>
-          <div class="d-flex gap-3 mt-4 flex-wrap">
-            <a href="#services" class="btn btn-signal">Voir les services</a>
-            <a href="#contact" class="btn btn-outline-wire">Me contacter</a>
+          <div class="hero-kicker">
+            <span class="availability-dot" aria-hidden="true"></span>
+            Disponible pour vos projets
+            <span class="hero-location">· Cotonou, Bénin</span>
           </div>
-          <!-- Emplacement pour une vidéo de présentation courte, si tu préfères ce format à terme -->
+          <h1 class="mb-3">Des applications Python <span class="accent">solides</span>, livrées sans détour.</h1>
+          <p class="hero-lead">{{ typedText }}<span class="cursor" :style="{height: '1.1em'}" aria-hidden="true"></span></p>
+          <div class="d-flex gap-3 mt-4 flex-wrap">
+            <a href="#services" class="btn btn-signal">Découvrir mes services <span aria-hidden="true">↘</span></a>
+            <a href="#contact" class="btn btn-outline-wire">Parlons de votre projet</a>
+          </div>
+          <div class="hero-stack" aria-label="Technologies principales">
+            <span>Python</span><span>FastAPI</span><span>API REST</span>
+          </div>
         </div>
         <div class="col-lg-6">
-          <div class="terminal">
+          <div class="terminal" aria-label="Extrait de réponse de l'API Obed">
             <div class="terminal-bar">
-              <span></span><span></span><span></span>
+              <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
               <span class="path">obed@backend:~$ curl /obed</span>
+              <span class="terminal-status"><span aria-hidden="true"></span> API en ligne</span>
             </div>
             <div class="terminal-body" v-html="terminalHtml"></div>
           </div>
@@ -73,20 +80,18 @@
   <!-- SERVICES -->
   <section id="services">
     <div class="container">
-      <div class="eyebrow">GET /services</div>
-      <h2 class="section-title">Ce que je fais</h2>
-      <p class="section-sub mb-5">Du travail backend Python concret : je reprends du code existant, je construis des API, et je m'assure que ça tient dans le temps.</p>
+      <div class="eyebrow" data-reveal>MES SERVICES</div>
+      <h2 class="section-title" data-reveal>Du code fiable, pensé pour durer.</h2>
+      <p class="section-sub mb-5" data-reveal>Je conçois et améliore des backends Python : API claires, code maintenable et tests utiles à chaque étape.</p>
       <div class="row g-4">
-        <div class="col-md-6 col-lg-3" v-for="s in services" :key="s.path">
-          <div class="card-flat">
-            <span class="endpoint-tag">{{ s.path }}</span>
+        <div class="col-md-6 col-lg-3" v-for="(s, index) in services" :key="s.path" :style="{ '--reveal-delay': (index * 80) + 'ms' }">
+          <div class="card-flat service-card" data-reveal>
+            <span class="endpoint-tag"><span aria-hidden="true">↗</span> {{ s.path }}</span>
             <h3>{{ s.title }}</h3>
             <p>{{ s.desc }}</p>
+            <span class="card-arrow" aria-hidden="true">↗</span>
           </div>
         </div>
-      </div>
-      <div class="scope-note">
-        <b>Hors périmètre actuellement :</b> GraphQL. Je reste concentré sur le REST — c'est ce que je maîtrise et livre bien.
       </div>
     </div>
   </section>
@@ -94,13 +99,13 @@
   <!-- MÉTHODOLOGIE -->
   <section id="methodologie">
     <div class="container">
-      <div class="eyebrow">GET /process</div>
-      <h2 class="section-title">Une méthode de travail claire et professionnelle</h2>
-      <p class="section-sub mb-5">Je structure le travail pour que le client comprenne le chemin, les délais, les livrables et les risques depuis le premier échange.</p>
+      <div class="eyebrow" data-reveal>COMMENT JE TRAVAILLE</div>
+      <h2 class="section-title" data-reveal>Un cadre clair, du premier échange à la livraison.</h2>
+      <p class="section-sub mb-5" data-reveal>Des objectifs et des livrables définis ensemble, une progression visible et une livraison documentée.</p>
       <div class="row g-4">
-        <div class="col-md-6 col-lg-3" v-for="(step, index) in workflowSteps" :key="step.title">
-          <div class="card-flat">
-            <div class="endpoint-tag">0{{ index + 1 }}</div>
+        <div class="col-md-6 col-lg-3" v-for="(step, index) in workflowSteps" :key="step.title" :style="{ '--reveal-delay': (index * 80) + 'ms' }">
+          <div class="card-flat workflow-card" data-reveal>
+            <div class="step-number">0{{ index + 1 }}</div>
             <h3>{{ step.title }}</h3>
             <p>{{ step.text }}</p>
           </div>
@@ -112,31 +117,31 @@
   <!-- COMPETENCES -->
   <section id="competences">
     <div class="container">
-      <div class="eyebrow">GET /skills</div>
-      <h2 class="section-title">Compétences</h2>
-      <p class="section-sub mb-4">Pas de portfolio client à montrer — la plupart de mes missions sont confidentielles. À la place, voici précisément ce que je maîtrise, plus mes projets personnels ci-dessous.</p>
-      <div class="mb-4">
-        <div v-for="group in skillGroups" :key="group.name" class="mb-3">
-          <div style="font-family:var(--mono); color:var(--muted); font-size:.8rem; margin-bottom:.5rem;">{{ group.name }}</div>
+      <div class="eyebrow" data-reveal>ENVIRONNEMENT TECHNIQUE</div>
+      <h2 class="section-title" data-reveal>Les outils au service du besoin.</h2>
+      <p class="section-sub mb-4" data-reveal>Une stack choisie pour la lisibilité, la fiabilité et l’évolution des projets.</p>
+      <div class="skills-grid mb-4">
+        <div v-for="(group, index) in skillGroups" :key="group.name" class="skill-group" data-reveal :style="{ '--reveal-delay': (index * 70) + 'ms' }">
+          <div class="skill-group-title">{{ group.name }}</div>
           <span class="skill-chip" v-for="sk in group.items" :key="sk">{{ sk }}</span>
         </div>
       </div>
-      <div class="cert-chip">✓ Certification SQL — DataCamp, février 2026</div>
+      <div class="cert-chip" data-reveal><span aria-hidden="true">✓</span> Certification SQL — DataCamp, février 2026</div>
     </div>
   </section>
 
   <!-- PROJETS COMPLETS -->
   <section id="projets-complets">
     <div class="container">
-      <div class="eyebrow">GET /projets</div>
-      <h2 class="section-title">Un projet complet à réaliser ?</h2>
+      <div class="eyebrow" data-reveal>PROJET SUR MESURE</div>
+      <h2 class="section-title" data-reveal>Vous avez le plan. Je donne vie au produit.</h2>
       <div class="row">
         <div class="col-lg-9">
-          <div class="card-flat" style="border-color:var(--signal);">
-            <p style="color:var(--text); font-size:1.02rem; margin-bottom:1rem;">
+          <div class="card-flat project-card" data-reveal>
+            <p class="project-copy">
               Vous avez déjà le logo, les maquettes et les spécifications ? Je peux prendre en charge le développement complet de votre site web ou application mobile — vous fournissez le design et le cahier des charges, je m'occupe de l'implémentation technique de bout en bout.
             </p>
-            <a href="#contact" class="btn btn-signal">Discuter du projet</a>
+            <a href="#contact" class="btn btn-signal">Présenter votre projet <span aria-hidden="true">↗</span></a>
           </div>
         </div>
       </div>
@@ -146,12 +151,12 @@
   <!-- TARIFS -->
   <section id="tarifs">
     <div class="container">
-      <div class="eyebrow">GET /pricing</div>
-      <h2 class="section-title">Tarifs</h2>
-      <p class="section-sub mb-4">Des repères de départ — chaque mission est cadrée avant devis final. Prix indicatifs en FCFA, à ajuster selon ton positionnement. Un acompte de 70% confirme la réservation, le solde est réglé à la livraison.</p>
+      <div class="eyebrow" data-reveal>OFFRES & TARIFS</div>
+      <h2 class="section-title" data-reveal>Des repères simples, sans surprise.</h2>
+      <p class="section-sub mb-4" data-reveal>Prix indicatifs en FCFA. Chaque mission est cadrée avant devis final. Un acompte de 70 % confirme la réservation, le solde est réglé à la livraison.</p>
       <div class="row g-4">
-        <div class="col-md-6 col-lg-3" v-for="(p, i) in plans" :key="p.name">
-          <div class="price-card" :class="{'is-featured': i===1}">
+        <div class="col-md-6 col-lg-3" v-for="(p, i) in plans" :key="p.name" :style="{ '--reveal-delay': (i * 70) + 'ms' }">
+          <div class="price-card" :class="{'is-featured': i===1}" data-reveal>
             <div class="plan-name">{{ p.name }}</div>
             <div class="price">{{ p.price.toLocaleString('fr-FR') }} <small>{{ p.unit }}</small></div>
             <div class="price-note">{{ p.note }}</div>
@@ -185,12 +190,12 @@
   <!-- SUIVI DE COMMANDE -->
   <section id="suivi">
     <div class="container">
-      <div class="eyebrow">GET /orders/:ref</div>
-      <h2 class="section-title">Suivre ma commande</h2>
-      <p class="section-sub mb-4">Tu as une référence de commande (reçue par email/WhatsApp) ? Vérifie son statut ou paie ton acompte ici.</p>
+      <div class="eyebrow" data-reveal>SUIVI DE COMMANDE</div>
+      <h2 class="section-title" data-reveal>Retrouvez votre commande.</h2>
+      <p class="section-sub mb-4" data-reveal>Entrez la référence reçue par email ou WhatsApp pour vérifier son statut ou régler un acompte.</p>
       <div class="row">
         <div class="col-lg-7">
-          <div class="d-flex gap-2 flex-wrap">
+          <div class="d-flex gap-2 flex-wrap" data-reveal>
             <input type="text" class="form-control form-control-dark" style="max-width:280px;" placeholder="Référence de commande" v-model="trackingRef">
             <button class="btn btn-outline-wire" @click="checkOrder">Vérifier</button>
           </div>
@@ -229,11 +234,11 @@
   <!-- TEMOIGNAGES -->
   <section id="temoignages">
     <div class="container">
-      <div class="eyebrow">GET /testimonials</div>
-      <h2 class="section-title">Témoignages</h2>
-      <p class="section-sub mb-5">Ce que mes clients disent de mon travail, publié après validation.</p>
+      <div class="eyebrow" data-reveal>RETOURS CLIENTS</div>
+      <h2 class="section-title" data-reveal>La confiance se construit ensemble.</h2>
+      <p class="section-sub mb-5" data-reveal>Les témoignages sont publiés après validation.</p>
 
-      <div v-if="testimonials.length" class="row g-4 mb-5">
+      <div v-if="testimonials.length" class="row g-4 mb-5" data-reveal>
         <div class="col-md-6 col-lg-4" v-for="t in testimonials" :key="t.id">
           <div class="card-flat">
             <div class="stars" v-if="t.rating">{{ '★'.repeat(t.rating) }}<span style="color:var(--line)">{{ '★'.repeat(5 - t.rating) }}</span></div>
@@ -244,7 +249,7 @@
       </div>
       <p v-else class="section-sub mb-5">Aucun témoignage pour l'instant — sois le premier à en laisser un.</p>
 
-      <div class="row">
+      <div class="row" data-reveal>
         <div class="col-lg-7">
           <form @submit.prevent="submitTestimonial">
             <div class="row g-3">
@@ -281,8 +286,8 @@
     <div class="container">
       <div class="row g-5">
         <div class="col-lg-5">
-          <div class="eyebrow">POST /contact</div>
-          <h2 class="section-title">Discutons de ta mission</h2>
+          <div class="eyebrow">CONTACT</div>
+          <h2 class="section-title">Construisons quelque chose de solide.</h2>
 
           <div class="owner-card">
             <img :src="ownerPhoto" alt="Obed VODOUHE" class="owner-photo">
@@ -293,7 +298,7 @@
           </div>
           <p class="section-sub">Je réponds personnellement, sous 24 à 48h.</p>
 
-          <div class="mt-4" style="font-family:var(--mono); font-size:.9rem; color:var(--muted);">
+          <div class="contact-details mt-4">
             <div class="mb-2">✉ leonardovodouhe06@gmail.com</div>
             <div class="mb-2">☎ +229 01 53 95 45 01</div>
             <div class="mb-2">in — obed-vodouhe</div>
@@ -301,7 +306,7 @@
           </div>
         </div>
         <div class="col-lg-7">
-          <form @submit.prevent="submitContact">
+          <form class="contact-form" @submit.prevent="submitContact">
             <div class="row g-3">
               <div class="col-md-6">
                 <label>Nom</label>
@@ -331,10 +336,10 @@
   <!-- MODAL RESERVATION -->
   <div class="modal fade" id="reserveModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content" style="background:var(--panel); border:1px solid var(--line); color:var(--text);">
+      <div class="modal-content">
         <div class="modal-header" style="border-color:var(--line);">
           <h5 class="modal-title">Réserver — {{ selectedPlan ? selectedPlan.name : '' }}</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fermer"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
         </div>
         <form @submit.prevent="confirmReservation">
           <div class="modal-body">
@@ -364,10 +369,10 @@
   <!-- MODAL DEVIS -->
   <div class="modal fade" id="quoteModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content" style="background:var(--panel); border:1px solid var(--line); color:var(--text);">
+      <div class="modal-content">
         <div class="modal-header" style="border-color:var(--line);">
           <h5 class="modal-title">Demander un devis</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fermer"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
         </div>
         <form @submit.prevent="submitQuoteRequest">
           <div class="modal-body">
