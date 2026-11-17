@@ -94,7 +94,6 @@
             </div>
             <div class="terminal-body" v-html="terminalHtml"></div>
           </div>
-          <a class="image-credit" href="https://unsplash.com/photos/a-man-sitting-in-front-of-a-computer-wearing-headphones-kQIdjLbCghA" target="_blank" rel="noopener noreferrer">Photo : Olumuyiwa Sobowale / Unsplash ↗</a>
         </div>
       </div>
     </div>
@@ -285,7 +284,6 @@
           </div>
         </div>
       </div>
-      <p class="payment-note">Paiement sécurisé par Mobile Money — MTN Mobile Money ou Celtiis Cash — ou par carte bancaire, via Kkiapay.</p>
       <div class="payment-demo-launch">
         <div>
           <strong>Découvrir le parcours de paiement</strong>
@@ -353,7 +351,6 @@
                 <button class="btn btn-signal" type="submit" :disabled="testimonialStatus.sending">
                   {{ testimonialStatus.sending ? 'Envoi...' : 'Envoyer mon témoignage' }}
                 </button>
-                <span class="form-privacy-note">Publication après validation</span>
                 <p class="status-msg w-100" :class="testimonialStatus.ok ? 'status-ok' : 'status-err'" v-if="testimonialStatus.msg" role="status">{{ testimonialStatus.msg }}</p>
               </div>
             </div>
