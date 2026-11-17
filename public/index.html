@@ -303,40 +303,72 @@
       <div class="eyebrow" data-reveal>SUIVI DE COMMANDE</div>
       <h2 class="section-title" data-reveal>Retrouvez votre commande.</h2>
       <p class="section-sub mb-4" data-reveal>Entrez la référence reçue par email ou WhatsApp pour vérifier son statut ou régler un acompte.</p>
-      <div class="row">
-        <div class="col-lg-7">
-          <div class="d-flex gap-2 flex-wrap" data-reveal>
-            <input type="text" class="form-control form-control-dark" style="max-width:280px;" placeholder="Référence de commande" v-model="trackingRef">
-            <button class="btn btn-outline-wire" @click="checkOrder">Vérifier</button>
+      <div class="row g-4 align-items-start">
+        <div class="col-lg-5">
+          <div class="tracking-lookup" data-reveal>
+            <div class="tracking-lookup-icon" aria-hidden="true"><svg><use href="#icon-file"></use></svg></div>
+            <h3>Commande réelle</h3>
+            <p>Retrouve le statut avec la référence reçue par email ou WhatsApp.</p>
+            <form class="tracking-lookup-form" @submit.prevent="checkOrder">
+              <label for="tracking-reference">Référence de commande</label>
+              <div class="input-group">
+                <input id="tracking-reference" type="text" class="form-control form-control-dark" placeholder="Ex. CMD-2026-001" v-model.trim="trackingRef" required>
+                <button class="btn btn-signal" type="submit">Vérifier</button>
+              </div>
+            </form>
           </div>
 
-          <div v-if="trackedOrder" class="card-flat mt-4">
-            <img class="order-card-image" src="https://images.unsplash.com/photo-1726066012801-14d892021339?auto=format&amp;fit=crop&amp;w=1000&amp;q=76" alt="Téléphone affichant une interface de paiement mobile." loading="lazy" decoding="async">
+          <div v-if="trackedOrder" class="card-flat tracked-order-card mt-4" aria-live="polite">
             <div class="endpoint-tag">{{ trackedOrder.public_ref }}</div>
             <h3>{{ trackedOrder.is_custom ? trackedOrder.custom_description : trackedOrder.plan_name }}</h3>
-
             <template v-if="trackedOrder.status === 'awaiting_price'">
               <p>En attente d'un prix — je reviens vers toi rapidement après discussion.</p>
             </template>
             <template v-else-if="trackedOrder.status === 'pending'">
-              <p>Total : {{ trackedOrder.total_amount.toLocaleString('fr-FR') }} {{ trackedOrder.currency }}<br>
-              Acompte à payer (70%) : <b>{{ trackedOrder.deposit_amount.toLocaleString('fr-FR') }} {{ trackedOrder.currency }}</b></p>
+              <p>Total : {{ trackedOrder.total_amount.toLocaleString('fr-FR') }} {{ trackedOrder.currency }}<br>Acompte à payer (70%) : <b>{{ trackedOrder.deposit_amount.toLocaleString('fr-FR') }} {{ trackedOrder.currency }}</b></p>
               <button class="btn btn-signal" @click="payTrackedOrder">Payer l'acompte</button>
             </template>
             <template v-else-if="trackedOrder.status === 'deposit_paid'">
               <p>Acompte confirmé — merci ! Solde restant : {{ (trackedOrder.total_amount - trackedOrder.deposit_amount).toLocaleString('fr-FR') }} {{ trackedOrder.currency }}, réglé à la livraison.</p>
-              <a :href="apiBase + '/invoice/' + trackedOrder.public_ref" target="_blank" class="btn btn-outline-wire">Voir la facture</a>
+              <a :href="apiBase + '/invoice/' + trackedOrder.public_ref" target="_blank" rel="noopener noreferrer" class="btn btn-outline-wire">Voir la facture</a>
             </template>
             <template v-else-if="trackedOrder.status === 'completed'">
               <p>Commande livrée — facture {{ trackedOrder.invoice_number }}.</p>
-              <a :href="apiBase + '/invoice/' + trackedOrder.public_ref" target="_blank" class="btn btn-outline-wire">Voir la facture</a>
+              <a :href="apiBase + '/invoice/' + trackedOrder.public_ref" target="_blank" rel="noopener noreferrer" class="btn btn-outline-wire">Voir la facture</a>
             </template>
             <template v-else-if="trackedOrder.status === 'failed'">
               <p>Le dernier paiement n'a pas pu être vérifié. Réessaie ou écris-moi directement.</p>
               <button class="btn btn-signal" @click="payTrackedOrder">Réessayer le paiement</button>
             </template>
           </div>
-          <p class="status-msg" :class="trackingStatus.ok ? 'status-ok' : 'status-err'" v-if="trackingStatus.msg">{{ trackingStatus.msg }}</p>
+          <p class="status-msg" :class="trackingStatus.ok ? 'status-ok' : 'status-err'" v-if="trackingStatus.msg" role="status">{{ trackingStatus.msg }}</p>
+        </div>
+
+        <div class="col-lg-7" data-reveal>
+          <aside class="tracking-mockup" aria-label="Simulation visuelle des états d’une commande">
+            <div class="tracking-mockup-topline"><span class="demo-eyebrow">APERÇU DU PARCOURS</span><span class="tracking-demo-badge">SIMULATION</span></div>
+            <div class="tracking-mockup-header">
+              <div><span class="tracking-mockup-ref">{{ activeTrackingMockup.reference }}</span><h3>{{ activeTrackingMockup.project }}</h3></div>
+              <span class="tracking-status-pill" :class="'tone-' + activeTrackingMockup.tone"><i aria-hidden="true"></i>{{ activeTrackingMockup.status }}</span>
+            </div>
+            <div class="tracking-demo-tabs" role="group" aria-label="Choisir un état simulé">
+              <button v-for="(mockup, index) in trackingMockups" :key="mockup.key" type="button" :class="{ 'is-active': trackingMockupIndex === index }" :aria-pressed="trackingMockupIndex === index" @click="trackingMockupIndex = index">{{ mockup.tab }}</button>
+            </div>
+            <div class="tracking-progress" role="progressbar" :aria-valuenow="activeTrackingMockup.progress" aria-valuemin="0" aria-valuemax="100" :aria-label="'Avancement simulé : ' + activeTrackingMockup.progress + '%'">
+              <span :style="{ width: activeTrackingMockup.progress + '%' }"></span>
+            </div>
+            <ol class="tracking-timeline" aria-label="Étapes simulées de la commande">
+              <li v-for="(step, index) in trackingMockupSteps" :key="step" :class="{ 'is-done': index &lt; activeTrackingMockup.completedSteps, 'is-current': index === activeTrackingMockup.completedSteps && activeTrackingMockup.completedSteps &lt; trackingMockupSteps.length }">
+                <span>{{ index &lt; activeTrackingMockup.completedSteps ? '✓' : '0' + (index + 1) }}</span><strong>{{ step }}</strong>
+              </li>
+            </ol>
+            <div class="tracking-demo-totals">
+              <div><span>Total</span><strong>{{ activeTrackingMockup.total }}</strong></div>
+              <div><span>Acompte · 70 %</span><strong>{{ activeTrackingMockup.deposit }}</strong></div>
+              <div><span>Solde · 30 %</span><strong>{{ activeTrackingMockup.balance }}</strong></div>
+            </div>
+            <p class="tracking-demo-note"><span aria-hidden="true">ⓘ</span> {{ activeTrackingMockup.note }} Aucun paiement ni aucune commande réelle n’est créé.</p>
+          </aside>
         </div>
       </div>
     </div>
@@ -347,44 +379,56 @@
     <div class="container">
       <div class="eyebrow" data-reveal>RETOURS CLIENTS</div>
       <h2 class="section-title" data-reveal>La confiance se construit ensemble.</h2>
-      <p class="section-sub mb-5" data-reveal>Les témoignages sont publiés après validation.</p>
+      <div class="testimonial-intro" data-reveal>
+        <p class="section-sub">Des retours concrets sur la collaboration, la communication et les livraisons.</p>
+        <span class="testimonial-moderation"><svg aria-hidden="true"><use href="#icon-check"></use></svg> Chaque avis est vérifié avant publication</span>
+      </div>
 
-      <div v-if="testimonials.length" class="row g-4 mb-5" data-reveal>
+      <div v-if="testimonials.length" class="row g-4 mb-5 testimonial-list" data-reveal>
         <div class="col-md-6 col-lg-4" v-for="t in testimonials" :key="t.id">
-          <div class="card-flat">
-            <img class="testimonial-image" src="https://images.unsplash.com/photo-1633114128814-11fac33f707b?auto=format&amp;fit=crop&amp;w=1000&amp;q=76" alt="Équipe en réunion pour discuter d’un projet." loading="lazy" decoding="async">
-            <div class="stars" v-if="t.rating">{{ '★'.repeat(t.rating) }}<span style="color:var(--line)">{{ '★'.repeat(5 - t.rating) }}</span></div>
-            <p style="color:var(--text); font-size:.92rem;">{{ t.message }}</p>
-            <p style="color:var(--muted); font-family:var(--mono); font-size:.8rem; margin-top:.8rem;">— {{ t.client_name }}</p>
-          </div>
+          <article class="testimonial-card">
+            <div class="testimonial-card-top"><span class="testimonial-quote" aria-hidden="true">“</span><span class="stars" v-if="t.rating" :aria-label="t.rating + ' étoiles sur 5'">{{ '★'.repeat(t.rating) }}<span class="empty-stars">{{ '★'.repeat(5 - t.rating) }}</span></span></div>
+            <blockquote>{{ t.message }}</blockquote>
+            <div class="testimonial-author"><span class="testimonial-avatar" aria-hidden="true">{{ t.client_name.trim().charAt(0).toUpperCase() }}</span><strong>{{ t.client_name }}</strong><span class="verified-review">Avis validé</span></div>
+          </article>
         </div>
       </div>
-      <p v-else class="section-sub mb-5">Aucun témoignage pour l'instant — sois le premier à en laisser un.</p>
+      <div v-else class="testimonial-empty-state" data-reveal>
+        <div class="testimonial-empty-mark" aria-hidden="true">“</div>
+        <div><strong>Votre retour peut ouvrir la conversation.</strong><p>Les premiers témoignages seront affichés ici après validation.</p></div>
+        <a href="#testimonial-form" class="btn btn-outline-wire">Laisser un témoignage</a>
+      </div>
 
-      <div class="row" data-reveal>
-        <div class="col-lg-7">
-          <form @submit.prevent="submitTestimonial">
+      <div class="testimonial-form-wrap" data-reveal>
+        <div class="testimonial-form-copy">
+          <span class="eyebrow">VOTRE EXPÉRIENCE</span>
+          <h3>Un projet réalisé ensemble ?</h3>
+          <p>Partage un retour sincère. Ton témoignage sera relu avant d’apparaître sur le site.</p>
+        </div>
+        <div class="testimonial-form-panel">
+          <form id="testimonial-form" @submit.prevent="submitTestimonial">
             <div class="row g-3">
               <div class="col-md-6">
-                <label>Nom</label>
-                <input type="text" class="form-control form-control-dark" v-model="testimonialForm.client_name" required>
+                <label for="testimonial-name">Nom</label>
+                <input id="testimonial-name" type="text" class="form-control form-control-dark" v-model="testimonialForm.client_name" required>
               </div>
               <div class="col-md-6">
-                <label>Note (optionnelle)</label>
-                <select class="form-control form-control-dark" v-model="testimonialForm.rating">
-                  <option :value="null">—</option>
+                <label for="testimonial-rating">Note (optionnelle)</label>
+                <select id="testimonial-rating" class="form-control form-control-dark" v-model="testimonialForm.rating">
+                  <option :value="null">Choisir une note</option>
                   <option v-for="n in [5,4,3,2,1]" :value="n" :key="n">{{ n }} / 5</option>
                 </select>
               </div>
               <div class="col-12">
-                <label>Ton témoignage</label>
-                <textarea class="form-control form-control-dark" rows="3" v-model="testimonialForm.message" required></textarea>
+                <label for="testimonial-message">Ton témoignage</label>
+                <textarea id="testimonial-message" class="form-control form-control-dark" rows="3" v-model="testimonialForm.message" required></textarea>
               </div>
               <div class="col-12">
-                <button class="btn btn-outline-wire" type="submit" :disabled="testimonialStatus.sending">
+                <button class="btn btn-signal" type="submit" :disabled="testimonialStatus.sending">
                   {{ testimonialStatus.sending ? 'Envoi...' : 'Envoyer mon témoignage' }}
                 </button>
-                <p class="status-msg" :class="testimonialStatus.ok ? 'status-ok' : 'status-err'" v-if="testimonialStatus.msg">{{ testimonialStatus.msg }}</p>
+                <span class="form-privacy-note">Publication après validation</span>
+                <p class="status-msg w-100" :class="testimonialStatus.ok ? 'status-ok' : 'status-err'" v-if="testimonialStatus.msg" role="status">{{ testimonialStatus.msg }}</p>
               </div>
             </div>
           </form>
@@ -398,45 +442,46 @@
     <div class="container">
       <div class="row g-5">
         <div class="col-lg-5">
-          <div class="eyebrow">CONTACT</div>
+          <div class="eyebrow">CONTACT DIRECT</div>
           <h2 class="section-title">Construisons quelque chose de solide.</h2>
+          <p class="contact-intro">Explique-moi ton objectif, les contraintes et le résultat attendu. Je te réponds personnellement sous 24 à 48 heures.</p>
 
-          <div class="owner-card">
+          <div class="owner-card contact-owner-card">
             <img :src="ownerPhoto" alt="Obed VODOUHE" class="owner-photo">
             <div>
               <div class="owner-name">Obed VODOUHE</div>
               <div class="owner-role">Développeur Full-Stack Python &amp; IA</div>
             </div>
           </div>
-          <p class="section-sub">Je réponds personnellement, sous 24 à 48h.</p>
-
           <div class="contact-details mt-4">
-            <div class="mb-2">✉ leonardovodouhe06@gmail.com</div>
-            <div class="mb-2">☎ +229 01 53 95 45 01</div>
-            <div class="mb-2">in — obed-vodouhe</div>
-            <a href="https://wa.me/2290153954501" target="_blank" class="whatsapp-link">Discuter sur WhatsApp →</a>
+            <a class="contact-channel" href="mailto:leonardovodouhe06@gmail.com"><span class="contact-channel-icon" aria-hidden="true">@</span><span><small>Email</small><strong>leonardovodouhe06@gmail.com</strong></span><span class="contact-channel-arrow" aria-hidden="true">↗</span></a>
+            <a class="contact-channel" href="tel:+2290153954501"><span class="contact-channel-icon" aria-hidden="true">☎</span><span><small>Téléphone</small><strong>+229 01 53 95 45 01</strong></span><span class="contact-channel-arrow" aria-hidden="true">↗</span></a>
+            <a class="contact-channel" href="https://www.linkedin.com/in/obed-vodouhe" target="_blank" rel="noopener noreferrer"><span class="contact-channel-icon" aria-hidden="true">in</span><span><small>LinkedIn</small><strong>Obed VODOUHE</strong></span><span class="contact-channel-arrow" aria-hidden="true">↗</span></a>
+            <a href="https://wa.me/2290153954501" target="_blank" rel="noopener noreferrer" class="whatsapp-link">Démarrer une conversation WhatsApp <span aria-hidden="true">↗</span></a>
           </div>
         </div>
         <div class="col-lg-7">
           <form class="contact-form" @submit.prevent="submitContact">
+            <div class="contact-form-heading"><span class="eyebrow">NOUVEAU PROJET</span><h3>Parlons de ton besoin.</h3><p>Quelques lignes suffisent pour démarrer.</p></div>
             <div class="row g-3">
               <div class="col-md-6">
-                <label>Nom</label>
-                <input type="text" class="form-control form-control-dark" v-model="contact.name" required>
+                <label for="contact-name">Nom</label>
+                <input id="contact-name" type="text" class="form-control form-control-dark" autocomplete="name" v-model="contact.name" required>
               </div>
               <div class="col-md-6">
-                <label>Email</label>
-                <input type="email" class="form-control form-control-dark" v-model="contact.email" required>
+                <label for="contact-email">Email</label>
+                <input id="contact-email" type="email" class="form-control form-control-dark" autocomplete="email" v-model="contact.email" required>
               </div>
               <div class="col-12">
-                <label>Décris ton besoin</label>
-                <textarea class="form-control form-control-dark" rows="5" v-model="contact.message" required></textarea>
+                <label for="contact-message">Décris ton besoin</label>
+                <textarea id="contact-message" class="form-control form-control-dark" rows="5" placeholder="Objectif, délais, fonctionnalités attendues…" v-model="contact.message" required></textarea>
               </div>
               <div class="col-12">
                 <button class="btn btn-signal" type="submit" :disabled="contactStatus.sending">
-                  {{ contactStatus.sending ? 'Envoi...' : 'Envoyer' }}
+                  {{ contactStatus.sending ? 'Envoi...' : 'Envoyer ma demande' }}
                 </button>
-                <p class="status-msg" :class="contactStatus.ok ? 'status-ok' : 'status-err'" v-if="contactStatus.msg">{{ contactStatus.msg }}</p>
+                <span class="form-privacy-note">Tes coordonnées servent uniquement à répondre à ta demande.</span>
+                <p class="status-msg" :class="contactStatus.ok ? 'status-ok' : 'status-err'" v-if="contactStatus.msg" role="status">{{ contactStatus.msg }}</p>
               </div>
             </div>
           </form>

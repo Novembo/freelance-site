@@ -123,10 +123,10 @@ createApp({
       ],
       skillGroups: [
         { name:'Backend & API', icon:'terminal', image:'https://images.unsplash.com/photo-1753545975907-dcb51efdd0d5?auto=format&fit=crop&w=900&q=76', imageAlt:'Développeur au travail devant un ordinateur portable.', items:['Python','FastAPI','Django','Django REST Framework','API REST','SQLAlchemy','Pydantic','OpenAPI'] },
-        { name:'Données', icon:'database', image:'https://images.unsplash.com/photo-1506399558188-acca6f8cbf41?auto=format&fit=crop&w=900&q=76', imageAlt:'Baies de serveurs dans un centre de données.', items:['PostgreSQL','SQLite','Redis','MySQL','MongoDB','SQL'] },
-        { name:'Sécurité & qualité', icon:'lock', image:'https://images.unsplash.com/photo-1737644467636-6b0053476bb2?auto=format&fit=crop&w=900&q=76', imageAlt:'Visage de robot évoquant les systèmes d’intelligence artificielle et de sécurité.', items:['JWT','RBAC','Validation','pytest','Tests API','CORS'] },
-        { name:'Interfaces', icon:'browser', image:'https://images.unsplash.com/photo-1649451844934-d33042e93092?auto=format&fit=crop&w=900&q=76', imageAlt:'Ordinateur affichant du code dans un espace de travail.', items:['HTML','CSS','JavaScript','Vue 3','React','React Native','TypeScript'] },
-        { name:'Outils & livraison', icon:'cloud', image:'https://images.unsplash.com/photo-1788790716354-00a65a62bf58?auto=format&fit=crop&w=900&q=76', imageAlt:'Terminal avec des statistiques réseau et système.', items:['Git / GitHub','Docker','GitHub Actions','CI/CD','Postman','Render','GitHub Pages'] },
+        { name:'Données', icon:'database', image:'https://images.unsplash.com/photo-1506399558188-acca6f8cbf41?auto=format&fit=crop&w=900&q=76', imageAlt:'Baies de serveurs dans un centre de données.', items:['PostgreSQL','SQLite','Redis','MySQL','MongoDB','SQL','Neon'] },
+        { name:'Sécurité & qualité', icon:'lock', image:'https://images.unsplash.com/photo-1737644467636-6b0053476bb2?auto=format&fit=crop&w=900&q=76', imageAlt:'Visage de robot évoquant les systèmes d’intelligence artificielle et de sécurité.', items:['JWT','RBAC','Google OAuth','Rate limiting','Validation','pytest','CORS'] },
+        { name:'Interfaces', icon:'browser', image:'https://images.unsplash.com/photo-1649451844934-d33042e93092?auto=format&fit=crop&w=900&q=76', imageAlt:'Ordinateur affichant du code dans un espace de travail.', items:['HTML','CSS','JavaScript','Bootstrap','Vue 3','React','React Native','TypeScript'] },
+        { name:'Outils & livraison', icon:'cloud', image:'https://images.unsplash.com/photo-1788790716354-00a65a62bf58?auto=format&fit=crop&w=900&q=76', imageAlt:'Terminal avec des statistiques réseau et système.', items:['GCP','Docker','GitHub Actions','CI/CD','cPanel','PythonAnywhere','Vercel','Postman','Render','GitHub Pages'] },
       ],
       credentials: [
         {
@@ -172,6 +172,14 @@ createApp({
       trackingRef: '',
       trackedOrder: null,
       trackingStatus: { ok:false, msg:'' },
+      trackingMockupIndex: 0,
+      trackingMockupSteps: ['Demande reçue','Devis validé','Acompte confirmé','Livraison'],
+      trackingMockups: [
+        { key:'quote', tab:'Devis', reference:'DEMO-2026-014', status:'Devis en préparation', tone:'quote', project:'API métier sur mesure', total:'À définir', deposit:'Après validation', balance:'À définir', completedSteps:1, progress:25, note:'La demande est enregistrée. Le tarif sera fixé après échange.' },
+        { key:'deposit', tab:'Acompte', reference:'DEMO-2026-027', status:'Acompte à régler', tone:'pending', project:'API de gestion', total:'90 000 FCFA', deposit:'63 000 FCFA', balance:'27 000 FCFA', completedSteps:2, progress:50, note:'Le devis est validé. L’acompte de 70 % confirme le démarrage.' },
+        { key:'production', tab:'En cours', reference:'DEMO-2026-032', status:'En cours de réalisation', tone:'progress', project:'Application web', total:'150 000 FCFA', deposit:'Payé · 105 000 FCFA', balance:'45 000 FCFA', completedSteps:3, progress:75, note:'Le projet avance. Le solde sera dû à la livraison.' },
+        { key:'delivered', tab:'Livrée', reference:'DEMO-2026-041', status:'Projet livré', tone:'complete', project:'Site vitrine', total:'75 000 FCFA', deposit:'Payé · 52 500 FCFA', balance:'Payé · 22 500 FCFA', completedSteps:4, progress:100, note:'Projet terminé. Une facture de démonstration est disponible.' },
+      ],
       currentOrderRef: null,
       paymentDemoPlanIndex: 1,
       paymentDemoMethod: 'mtn',
@@ -200,6 +208,9 @@ createApp({
         celtiis:'Celtiis Cash',
         card:'Carte bancaire',
       }[this.paymentDemoMethod];
+    },
+    activeTrackingMockup(){
+      return this.trackingMockups[this.trackingMockupIndex] || this.trackingMockups[0];
     },
   },
   watch:{
