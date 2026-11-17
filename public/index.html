@@ -468,15 +468,15 @@
             <div class="row g-3">
               <div class="col-md-6">
                 <label for="contact-name">Nom</label>
-                <input id="contact-name" type="text" class="form-control form-control-dark" autocomplete="name" v-model="contact.name" required>
+                <input id="contact-name" type="text" class="form-control form-control-dark" autocomplete="name" maxlength="100" v-model.trim="contact.name" required>
               </div>
               <div class="col-md-6">
                 <label for="contact-email">Email</label>
-                <input id="contact-email" type="email" class="form-control form-control-dark" autocomplete="email" v-model="contact.email" required>
+                <input id="contact-email" type="email" class="form-control form-control-dark" autocomplete="email" maxlength="254" v-model.trim="contact.email" required>
               </div>
               <div class="col-12">
                 <label for="contact-message">Décris ton besoin</label>
-                <textarea id="contact-message" class="form-control form-control-dark" rows="5" placeholder="Objectif, délais, fonctionnalités attendues…" v-model="contact.message" required></textarea>
+                <textarea id="contact-message" class="form-control form-control-dark" rows="5" maxlength="5000" placeholder="Objectif, délais, fonctionnalités attendues…" v-model.trim="contact.message" required></textarea>
               </div>
               <div class="col-12">
                 <button class="btn btn-signal" type="submit" :disabled="contactStatus.sending">
@@ -500,17 +500,17 @@
           <h5 class="modal-title">Réserver — {{ selectedPlan ? selectedPlan.name : '' }}</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
         </div>
-        <form @submit.prevent="confirmReservation">
+        <form aria-label="Réserver cette offre" @submit.prevent="confirmReservation">
           <div class="modal-body">
             <p class="section-sub mb-1" v-if="selectedPlan">Total : {{ selectedPlan.price.toLocaleString('fr-FR') }} {{ selectedPlan.unit }}</p>
             <p class="section-sub mb-3" v-if="selectedPlan"><b style="color:var(--signal);">Acompte à payer maintenant (70%) : {{ Math.round(selectedPlan.price*0.7).toLocaleString('fr-FR') }} FCFA</b></p>
             <div class="mb-3">
-              <label>Nom</label>
-              <input type="text" class="form-control form-control-dark" v-model="orderForm.client_name" required>
+              <label for="reservation-name">Nom</label>
+              <input id="reservation-name" type="text" class="form-control form-control-dark" autocomplete="name" maxlength="100" v-model.trim="orderForm.client_name" required>
             </div>
             <div class="mb-3">
-              <label>Email</label>
-              <input type="email" class="form-control form-control-dark" v-model="orderForm.client_email" required>
+              <label for="reservation-email">Email</label>
+              <input id="reservation-email" type="email" class="form-control form-control-dark" autocomplete="email" maxlength="254" v-model.trim="orderForm.client_email" required>
             </div>
             <p class="payment-note mb-0">Tu seras redirigé vers Kkiapay pour payer l'acompte par MTN Mobile Money, Celtiis Cash ou carte. Le solde (30%) sera réglé à la livraison.</p>
           </div>
@@ -519,7 +519,7 @@
               {{ orderStatus.sending ? 'Préparation...' : 'Continuer vers le paiement de l\'acompte' }}
             </button>
           </div>
-          <p class="status-msg px-3 pb-3" :class="orderStatus.ok ? 'status-ok' : 'status-err'" v-if="orderStatus.msg">{{ orderStatus.msg }}</p>
+          <p class="status-msg" :class="orderStatus.ok ? 'status-ok' : 'status-err'" v-if="orderStatus.msg" role="status">{{ orderStatus.msg }}</p>
         </form>
       </div>
     </div>
@@ -626,20 +626,20 @@
           <h5 class="modal-title">Demander un devis</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
         </div>
-        <form @submit.prevent="submitQuoteRequest">
+        <form aria-label="Demander un devis" @submit.prevent="submitQuoteRequest">
           <div class="modal-body">
             <p class="section-sub mb-3">Décris ton projet, je reviens vers toi avec un prix. Une fois d'accord, tu valides avec un acompte de 70%.</p>
             <div class="mb-3">
-              <label>Nom</label>
-              <input type="text" class="form-control form-control-dark" v-model="quoteForm.client_name" required>
+              <label for="quote-name">Nom</label>
+              <input id="quote-name" type="text" class="form-control form-control-dark" autocomplete="name" maxlength="100" v-model.trim="quoteForm.client_name" required>
             </div>
             <div class="mb-3">
-              <label>Email</label>
-              <input type="email" class="form-control form-control-dark" v-model="quoteForm.client_email" required>
+              <label for="quote-email">Email</label>
+              <input id="quote-email" type="email" class="form-control form-control-dark" autocomplete="email" maxlength="254" v-model.trim="quoteForm.client_email" required>
             </div>
             <div class="mb-3">
-              <label>Description du projet</label>
-              <textarea class="form-control form-control-dark" rows="4" v-model="quoteForm.description" required></textarea>
+              <label for="quote-description">Description du projet</label>
+              <textarea id="quote-description" class="form-control form-control-dark" rows="4" maxlength="5000" v-model.trim="quoteForm.description" required></textarea>
             </div>
           </div>
           <div class="modal-footer" style="border-color:var(--line);">
@@ -647,7 +647,7 @@
               {{ quoteStatus.sending ? 'Envoi...' : 'Envoyer ma demande' }}
             </button>
           </div>
-          <p class="status-msg px-3 pb-3" :class="quoteStatus.ok ? 'status-ok' : 'status-err'" v-if="quoteStatus.msg">{{ quoteStatus.msg }}</p>
+          <p class="status-msg" :class="quoteStatus.ok ? 'status-ok' : 'status-err'" v-if="quoteStatus.msg" role="status">{{ quoteStatus.msg }}</p>
         </form>
       </div>
     </div>

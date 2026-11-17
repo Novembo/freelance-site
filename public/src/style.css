@@ -712,9 +712,10 @@ section:nth-of-type(even){ background:rgba(255,255,255,.62); }
   .testimonial-empty-state strong{ color:var(--text); font-family:var(--display); }
   .testimonial-empty-state p{ margin:.25rem 0 0; color:var(--muted); font-size:.82rem; }
   .testimonial-empty-state .btn{ margin-left:auto; white-space:nowrap; }
-  .testimonial-form-wrap{ display:grid; grid-template-columns:.8fr 1.2fr; gap:clamp(1.5rem,5vw,4rem); align-items:start; padding:clamp(1.4rem,3vw,2rem) 0 0; border-top:1px solid var(--line); }
+  .testimonial-form-wrap{ display:block; width:min(100%,820px); margin:0 auto; padding:clamp(1.4rem,3vw,2rem) 0 0; border-top:1px solid var(--line); }
   .testimonial-form-copy h3{ color:var(--text); font-size:1.6rem; }
-  .testimonial-form-copy p{ color:var(--muted); }
+  .testimonial-form-copy{ max-width:600px; margin:0 auto 1.25rem; }
+  .testimonial-form-copy p{ max-width:540px; margin-bottom:0; color:var(--muted); }
   .testimonial-form-panel{ min-width:0; }
   .testimonial-form-panel label{ color:#34435A; }
   .form-help{ display:block; margin-top:.4rem; color:var(--muted); font-size:.72rem; line-height:1.5; }
@@ -736,9 +737,16 @@ section:nth-of-type(even){ background:rgba(255,255,255,.62); }
   .contact-form-heading h3{ font-size:1.65rem; }
   .contact-form-heading p{ margin:0; }
   .contact-form .form-privacy-note{ margin-left:.7rem; }
+  .contact-form .row.g-3{ --bs-gutter-y:1.15rem; }
+  .modal form .modal-body{ padding:1.35rem 1.5rem; }
+  .modal form .modal-footer{ padding:0 1.5rem 1.35rem; }
+  .modal form .modal-body .mb-3:last-child{ margin-bottom:0 !important; }
+  .modal form .status-msg{ padding-right:1.5rem; padding-left:1.5rem; }
   @media(max-width:767.98px){
     .testimonial-intro{ align-items:flex-start; flex-direction:column; }
-    .testimonial-form-wrap{ grid-template-columns:1fr; gap:.6rem; }
+    .testimonial-form-wrap{ padding-top:1.35rem; }
+    .modal form .modal-body{ padding:1.15rem; }
+    .modal form .modal-footer{ padding:0 1.15rem 1.15rem; }
   }
   @media(max-width:575.98px){
     .tracking-mockup-header{ flex-direction:column; }
