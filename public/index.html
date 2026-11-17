@@ -402,26 +402,28 @@
       <div class="testimonial-form-wrap" data-reveal>
         <div class="testimonial-form-copy">
           <span class="eyebrow">VOTRE EXPÉRIENCE</span>
-          <h3>Un projet réalisé ensemble ?</h3>
+          <h3 id="testimonial-form-title">Un projet réalisé ensemble ?</h3>
           <p>Partage un retour sincère. Ton témoignage sera relu avant d’apparaître sur le site.</p>
         </div>
         <div class="testimonial-form-panel">
-          <form id="testimonial-form" @submit.prevent="submitTestimonial">
+          <form id="testimonial-form" aria-labelledby="testimonial-form-title" @submit.prevent="submitTestimonial">
             <div class="row g-3">
               <div class="col-md-6">
-                <label for="testimonial-name">Nom</label>
-                <input id="testimonial-name" type="text" class="form-control form-control-dark" v-model="testimonialForm.client_name" required>
+                <label for="testimonial-name">Nom (obligatoire)</label>
+                <input id="testimonial-name" type="text" class="form-control form-control-dark" autocomplete="name" maxlength="100" v-model.trim="testimonialForm.client_name" required>
               </div>
               <div class="col-md-6">
                 <label for="testimonial-rating">Note (optionnelle)</label>
-                <select id="testimonial-rating" class="form-control form-control-dark" v-model="testimonialForm.rating">
+                <select id="testimonial-rating" class="form-select form-control-dark" aria-describedby="testimonial-rating-help" v-model.number="testimonialForm.rating">
                   <option :value="null">Choisir une note</option>
-                  <option v-for="n in [5,4,3,2,1]" :value="n" :key="n">{{ n }} / 5</option>
+                  <option v-for="n in [1,2,3,4,5]" :value="n" :key="n">{{ n }} / 5</option>
                 </select>
+                <small id="testimonial-rating-help" class="form-help">Choisis un chiffre de 1 à 5.</small>
               </div>
               <div class="col-12">
-                <label for="testimonial-message">Ton témoignage</label>
-                <textarea id="testimonial-message" class="form-control form-control-dark" rows="3" v-model="testimonialForm.message" required></textarea>
+                <label for="testimonial-message">Ton témoignage (obligatoire)</label>
+                <textarea id="testimonial-message" class="form-control form-control-dark" rows="4" maxlength="2000" aria-describedby="testimonial-message-help" v-model.trim="testimonialForm.message" required></textarea>
+                <small id="testimonial-message-help" class="form-help">Décris ton expérience en quelques phrases (2 000 caractères maximum).</small>
               </div>
               <div class="col-12">
                 <button class="btn btn-signal" type="submit" :disabled="testimonialStatus.sending">

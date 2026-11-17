@@ -712,15 +712,13 @@ section:nth-of-type(even){ background:rgba(255,255,255,.62); }
   .testimonial-empty-state strong{ color:var(--text); font-family:var(--display); }
   .testimonial-empty-state p{ margin:.25rem 0 0; color:var(--muted); font-size:.82rem; }
   .testimonial-empty-state .btn{ margin-left:auto; white-space:nowrap; }
-  .testimonial-form-wrap{ display:grid; grid-template-columns:.8fr 1.2fr; gap:clamp(1.5rem,5vw,4rem); align-items:start; padding:clamp(1.4rem,4vw,2.5rem); border-radius:24px; background:#101828; }
-  .testimonial-form-copy h3{ color:#fff; font-size:1.6rem; }
-  .testimonial-form-copy p{ color:#B8C6D5; }
-  .testimonial-form-copy .eyebrow{ color:#8EE8DB; }
-  .testimonial-form-copy .eyebrow::before{ background:#8EE8DB; }
-  .testimonial-form-panel{ padding:1.35rem; border:1px solid rgba(255,255,255,.12); border-radius:18px; background:rgba(255,255,255,.06); }
-  .testimonial-form-panel label{ color:#EAF0F5; }
+  .testimonial-form-wrap{ display:grid; grid-template-columns:.8fr 1.2fr; gap:clamp(1.5rem,5vw,4rem); align-items:start; padding:clamp(1.4rem,3vw,2rem) 0 0; border-top:1px solid var(--line); }
+  .testimonial-form-copy h3{ color:var(--text); font-size:1.6rem; }
+  .testimonial-form-copy p{ color:var(--muted); }
+  .testimonial-form-panel{ min-width:0; }
+  .testimonial-form-panel label{ color:#34435A; }
+  .form-help{ display:block; margin-top:.4rem; color:var(--muted); font-size:.72rem; line-height:1.5; }
   .form-privacy-note{ display:inline-block; margin:.65rem 0 0 .7rem; color:var(--muted); font-size:.72rem; }
-  .testimonial-form-panel .form-privacy-note{ color:#B8C6D5; }
   .contact-intro{ max-width:450px; color:var(--muted); }
   .contact-owner-card{ margin-top:1.5rem; }
   .contact-details{ display:grid; gap:.55rem; }
