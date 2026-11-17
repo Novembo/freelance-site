@@ -169,17 +169,6 @@ createApp({
       orderStatus: { sending:false, ok:false, msg:'' },
       quoteForm: { client_name:'', client_email:'', description:'' },
       quoteStatus: { sending:false, ok:false, msg:'' },
-      trackingRef: '',
-      trackedOrder: null,
-      trackingStatus: { ok:false, msg:'' },
-      trackingMockupIndex: 0,
-      trackingMockupSteps: ['Demande reçue','Devis validé','Acompte confirmé','Livraison'],
-      trackingMockups: [
-        { key:'quote', tab:'Devis', reference:'DEMO-2026-014', status:'Devis en préparation', tone:'quote', project:'API métier sur mesure', total:'À définir', deposit:'Après validation', balance:'À définir', completedSteps:1, progress:25, note:'La demande est enregistrée. Le tarif sera fixé après échange.' },
-        { key:'deposit', tab:'Acompte', reference:'DEMO-2026-027', status:'Acompte à régler', tone:'pending', project:'API de gestion', total:'90 000 FCFA', deposit:'63 000 FCFA', balance:'27 000 FCFA', completedSteps:2, progress:50, note:'Le devis est validé. L’acompte de 70 % confirme le démarrage.' },
-        { key:'production', tab:'En cours', reference:'DEMO-2026-032', status:'En cours de réalisation', tone:'progress', project:'Application web', total:'150 000 FCFA', deposit:'Payé · 105 000 FCFA', balance:'45 000 FCFA', completedSteps:3, progress:75, note:'Le projet avance. Le solde sera dû à la livraison.' },
-        { key:'delivered', tab:'Livrée', reference:'DEMO-2026-041', status:'Projet livré', tone:'complete', project:'Site vitrine', total:'75 000 FCFA', deposit:'Payé · 52 500 FCFA', balance:'Payé · 22 500 FCFA', completedSteps:4, progress:100, note:'Projet terminé. Une facture de démonstration est disponible.' },
-      ],
       currentOrderRef: null,
       paymentDemoPlanIndex: 1,
       paymentDemoMethod: 'mtn',
@@ -209,9 +198,6 @@ createApp({
         card:'Carte bancaire',
       }[this.paymentDemoMethod];
     },
-    activeTrackingMockup(){
-      return this.trackingMockups[this.trackingMockupIndex] || this.trackingMockups[0];
-    },
   },
   watch:{
     activeProjectFilter(){
@@ -224,15 +210,6 @@ createApp({
     this.fetchTestimonials();
     this.observeReveals();
 
-    // Si le lien contient ?order=xxx (envoyé par Obed après un devis), on vérifie direct
-    const params = new URLSearchParams(window.location.search);
-    const orderParam = params.get('order');
-    if (orderParam) {
-      this.trackingRef = orderParam;
-      this.checkOrder();
-    }
-
-    // Écoute des évènements de paiement Kkiapay
     if (window.addKkiapayListener) {
       addKkiapayListener('success', (r) => {
         this.confirmPaymentOnServer(r);
@@ -405,22 +382,6 @@ createApp({
         this.quoteStatus = { sending:false, ok:false, msg:"Impossible d'envoyer la demande pour le moment. Réessaie dans un instant." };
       });
     },
-    checkOrder(){
-      if (!this.trackingRef) return;
-      this.trackingStatus = { ok:false, msg:'' };
-      this.trackedOrder = null;
-      fetch(this.apiBase + '/api/orders/' + encodeURIComponent(this.trackingRef))
-        .then(r => { if(!r.ok) throw new Error(); return r.json(); })
-        .then(order => { this.trackedOrder = order; })
-        .catch(() => {
-          this.trackingStatus = { ok:false, msg:"Référence introuvable — vérifie qu'elle est correcte." };
-        });
-    },
-    payTrackedOrder(){
-      if (!this.trackedOrder) return;
-      this.currentOrderRef = this.trackedOrder.public_ref;
-      this.launchKkiapay(this.trackedOrder.public_ref, this.trackedOrder.deposit_amount);
-    },
     launchKkiapay(publicRef, depositAmount){
       if (!window.openKkiapayWidget){
         this.orderStatus = { sending:false, ok:false, msg:"Le module de paiement n'a pas pu se charger. Vérifie ta connexion." };
@@ -451,8 +412,6 @@ createApp({
       .then(res => {
         if (res.status === 'confirmed'){
           this.paymentStatus = { ok:true, msg:"Acompte vérifié et confirmé — merci ! Le solde (30%) sera réglé à la livraison. Je reviens vers toi rapidement." };
-          this.trackingRef = this.currentOrderRef;
-          this.checkOrder();
         } else {
           this.paymentStatus = { ok:false, msg:"Le paiement n'a pas pu être vérifié automatiquement. Écris-moi à leonardovodouhe06@gmail.com avec ta référence de transaction." };
         }

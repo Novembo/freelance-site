@@ -297,83 +297,6 @@
     </div>
   </section>
 
-  <!-- SUIVI DE COMMANDE -->
-  <section id="suivi">
-    <div class="container">
-      <div class="eyebrow" data-reveal>SUIVI DE COMMANDE</div>
-      <h2 class="section-title" data-reveal>Retrouvez votre commande.</h2>
-      <p class="section-sub mb-4" data-reveal>Entrez la référence reçue par email ou WhatsApp pour vérifier son statut ou régler un acompte.</p>
-      <div class="row g-4 align-items-start">
-        <div class="col-lg-5">
-          <div class="tracking-lookup" data-reveal>
-            <div class="tracking-lookup-icon" aria-hidden="true"><svg><use href="#icon-file"></use></svg></div>
-            <h3>Commande réelle</h3>
-            <p>Retrouve le statut avec la référence reçue par email ou WhatsApp.</p>
-            <form class="tracking-lookup-form" @submit.prevent="checkOrder">
-              <label for="tracking-reference">Référence de commande</label>
-              <div class="input-group">
-                <input id="tracking-reference" type="text" class="form-control form-control-dark" placeholder="Ex. CMD-2026-001" v-model.trim="trackingRef" required>
-                <button class="btn btn-signal" type="submit">Vérifier</button>
-              </div>
-            </form>
-          </div>
-
-          <div v-if="trackedOrder" class="card-flat tracked-order-card mt-4" aria-live="polite">
-            <div class="endpoint-tag">{{ trackedOrder.public_ref }}</div>
-            <h3>{{ trackedOrder.is_custom ? trackedOrder.custom_description : trackedOrder.plan_name }}</h3>
-            <template v-if="trackedOrder.status === 'awaiting_price'">
-              <p>En attente d'un prix — je reviens vers toi rapidement après discussion.</p>
-            </template>
-            <template v-else-if="trackedOrder.status === 'pending'">
-              <p>Total : {{ trackedOrder.total_amount.toLocaleString('fr-FR') }} {{ trackedOrder.currency }}<br>Acompte à payer (70%) : <b>{{ trackedOrder.deposit_amount.toLocaleString('fr-FR') }} {{ trackedOrder.currency }}</b></p>
-              <button class="btn btn-signal" @click="payTrackedOrder">Payer l'acompte</button>
-            </template>
-            <template v-else-if="trackedOrder.status === 'deposit_paid'">
-              <p>Acompte confirmé — merci ! Solde restant : {{ (trackedOrder.total_amount - trackedOrder.deposit_amount).toLocaleString('fr-FR') }} {{ trackedOrder.currency }}, réglé à la livraison.</p>
-              <a :href="apiBase + '/invoice/' + trackedOrder.public_ref" target="_blank" rel="noopener noreferrer" class="btn btn-outline-wire">Voir la facture</a>
-            </template>
-            <template v-else-if="trackedOrder.status === 'completed'">
-              <p>Commande livrée — facture {{ trackedOrder.invoice_number }}.</p>
-              <a :href="apiBase + '/invoice/' + trackedOrder.public_ref" target="_blank" rel="noopener noreferrer" class="btn btn-outline-wire">Voir la facture</a>
-            </template>
-            <template v-else-if="trackedOrder.status === 'failed'">
-              <p>Le dernier paiement n'a pas pu être vérifié. Réessaie ou écris-moi directement.</p>
-              <button class="btn btn-signal" @click="payTrackedOrder">Réessayer le paiement</button>
-            </template>
-          </div>
-          <p class="status-msg" :class="trackingStatus.ok ? 'status-ok' : 'status-err'" v-if="trackingStatus.msg" role="status">{{ trackingStatus.msg }}</p>
-        </div>
-
-        <div class="col-lg-7" data-reveal>
-          <aside class="tracking-mockup" aria-label="Simulation visuelle des états d’une commande">
-            <div class="tracking-mockup-topline"><span class="demo-eyebrow">APERÇU DU PARCOURS</span><span class="tracking-demo-badge">SIMULATION</span></div>
-            <div class="tracking-mockup-header">
-              <div><span class="tracking-mockup-ref">{{ activeTrackingMockup.reference }}</span><h3>{{ activeTrackingMockup.project }}</h3></div>
-              <span class="tracking-status-pill" :class="'tone-' + activeTrackingMockup.tone"><i aria-hidden="true"></i>{{ activeTrackingMockup.status }}</span>
-            </div>
-            <div class="tracking-demo-tabs" role="group" aria-label="Choisir un état simulé">
-              <button v-for="(mockup, index) in trackingMockups" :key="mockup.key" type="button" :class="{ 'is-active': trackingMockupIndex === index }" :aria-pressed="trackingMockupIndex === index" @click="trackingMockupIndex = index">{{ mockup.tab }}</button>
-            </div>
-            <div class="tracking-progress" role="progressbar" :aria-valuenow="activeTrackingMockup.progress" aria-valuemin="0" aria-valuemax="100" :aria-label="'Avancement simulé : ' + activeTrackingMockup.progress + '%'">
-              <span :style="{ width: activeTrackingMockup.progress + '%' }"></span>
-            </div>
-            <ol class="tracking-timeline" aria-label="Étapes simulées de la commande">
-              <li v-for="(step, index) in trackingMockupSteps" :key="step" :class="{ 'is-done': index &lt; activeTrackingMockup.completedSteps, 'is-current': index === activeTrackingMockup.completedSteps && activeTrackingMockup.completedSteps &lt; trackingMockupSteps.length }">
-                <span>{{ index &lt; activeTrackingMockup.completedSteps ? '✓' : '0' + (index + 1) }}</span><strong>{{ step }}</strong>
-              </li>
-            </ol>
-            <div class="tracking-demo-totals">
-              <div><span>Total</span><strong>{{ activeTrackingMockup.total }}</strong></div>
-              <div><span>Acompte · 70 %</span><strong>{{ activeTrackingMockup.deposit }}</strong></div>
-              <div><span>Solde · 30 %</span><strong>{{ activeTrackingMockup.balance }}</strong></div>
-            </div>
-            <p class="tracking-demo-note"><span aria-hidden="true">ⓘ</span> {{ activeTrackingMockup.note }} Aucun paiement ni aucune commande réelle n’est créé.</p>
-          </aside>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- TEMOIGNAGES -->
   <section id="temoignages">
     <div class="container">
@@ -442,8 +365,8 @@
   <!-- CONTACT -->
   <section id="contact">
     <div class="container">
-      <div class="row g-5">
-        <div class="col-lg-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 contact-direct-content">
           <div class="eyebrow">CONTACT DIRECT</div>
           <h2 class="section-title">Construisons quelque chose de solide.</h2>
           <p class="contact-intro">Explique-moi ton objectif, les contraintes et le résultat attendu. Je te réponds personnellement sous 24 à 48 heures.</p>
@@ -462,32 +385,7 @@
             <a href="https://wa.me/2290153954501" target="_blank" rel="noopener noreferrer" class="whatsapp-link">Démarrer une conversation WhatsApp <span aria-hidden="true">↗</span></a>
           </div>
         </div>
-        <div class="col-lg-7">
-          <form class="contact-form" @submit.prevent="submitContact">
-            <div class="contact-form-heading"><span class="eyebrow">NOUVEAU PROJET</span><h3>Parlons de ton besoin.</h3><p>Quelques lignes suffisent pour démarrer.</p></div>
-            <div class="row g-3">
-              <div class="col-md-6">
-                <label for="contact-name">Nom</label>
-                <input id="contact-name" type="text" class="form-control form-control-dark" autocomplete="name" maxlength="100" v-model.trim="contact.name" required>
-              </div>
-              <div class="col-md-6">
-                <label for="contact-email">Email</label>
-                <input id="contact-email" type="email" class="form-control form-control-dark" autocomplete="email" maxlength="254" v-model.trim="contact.email" required>
-              </div>
-              <div class="col-12">
-                <label for="contact-message">Décris ton besoin</label>
-                <textarea id="contact-message" class="form-control form-control-dark" rows="5" maxlength="5000" placeholder="Objectif, délais, fonctionnalités attendues…" v-model.trim="contact.message" required></textarea>
-              </div>
-              <div class="col-12">
-                <button class="btn btn-signal" type="submit" :disabled="contactStatus.sending">
-                  {{ contactStatus.sending ? 'Envoi...' : 'Envoyer ma demande' }}
-                </button>
-                <span class="form-privacy-note">Tes coordonnées servent uniquement à répondre à ta demande.</span>
-                <p class="status-msg" :class="contactStatus.ok ? 'status-ok' : 'status-err'" v-if="contactStatus.msg" role="status">{{ contactStatus.msg }}</p>
-              </div>
-            </div>
-          </form>
-        </div>
+
       </div>
     </div>
   </section>
