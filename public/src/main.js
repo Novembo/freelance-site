@@ -2,20 +2,119 @@ import { createApp } from 'vue'
 import * as bootstrap from 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './style.css'
+import freelanceSiteScreenshot from '../images/projects/freelance-site.png'
+import authRbacScreenshot from '../images/projects/auth-rbac-api.png'
+import todoApiScreenshot from '../images/projects/todo-api.png'
+import wordLadderScreenshot from '../images/projects/word-ladder.png'
+import modiDocxScreenshot from '../images/projects/modi-docx.png'
 
 createApp({
   data(){
     return {
       apiBase: window.API_BASE,
       typedText: '',
-      fullText: "Je conçois et fiabilise des applications Python de bout en bout — API REST, revue de code, tests, documentation, et interfaces quand le projet le demande. Simple, propre, livré à temps.",
+      fullText: "Je conçois des applications Python fiables, des API métier aux solutions d’intelligence artificielle. Backend, interfaces web et computer vision : des produits testés, documentés et prêts à évoluer.",
       terminalHtml: '',
       services: [
-        { path:'/code-review', title:'Revue de code', desc:"Relecture de ta base Python : bugs, structure, sécurité, et recommandations concrètes." },
-        { path:'/rest-api', title:'Développement API REST', desc:"Conception et implémentation d'API avec FastAPI ou Django — endpoints, auth, permissions." },
-        { path:'/tests', title:'Tests automatisés', desc:"Mise en place de tests unitaires et d'intégration pour sécuriser tes déploiements." },
-        { path:'/api-docs', title:'Documentation d\'API', desc:"Documentation claire de tes endpoints pour que ton équipe (ou tes clients) s'y retrouve." },
+        { path:'/code-review', icon:'code', title:'Revue de code', desc:"Relecture de ta base Python : bugs, structure, sécurité, et recommandations concrètes." },
+        { path:'/rest-api', icon:'api', title:'Développement API REST', desc:"Conception et implémentation d'API avec FastAPI ou Django — endpoints, auth, permissions." },
+        { path:'/tests', icon:'check', title:'Tests automatisés', desc:"Mise en place de tests unitaires et d'intégration pour sécuriser tes déploiements." },
+        { path:'/api-docs', icon:'book', title:'Documentation d\'API', desc:"Documentation claire de tes endpoints pour que ton équipe (ou tes clients) s'y retrouve." },
       ],
+      projects: [
+        {
+          slug:'freelance-site',
+          icon:'browser',
+          category:'web',
+          type:'Site web · API REST',
+          name:'Site vitrine & API de commandes',
+          status:'Site en ligne',
+          statusTone:'live',
+          image:freelanceSiteScreenshot,
+          imageAlt:'Capture du site freelance Obed VODOUHE, avec sa présentation et son API.',
+          description:'Site responsive connecté à une API FastAPI pour les demandes de devis, les commandes, les témoignages et la vérification des paiements en mode sandbox.',
+          technologies:['Vue 3','Bootstrap 5','FastAPI','SQLite','Kkiapay sandbox'],
+          links:[
+            { label:'Voir le site', url:'https://novembo.github.io/freelance-site/', primary:true },
+            { label:'API', url:'https://freelance-site-api.onrender.com/docs' },
+            { label:'Code', url:'https://github.com/Novembo/freelance-site' },
+          ],
+        },
+        {
+          slug:'auth-rbac-api',
+          icon:'lock',
+          category:'api',
+          type:'API · Sécurité',
+          name:'Authentification & rôles',
+          status:'API en ligne',
+          statusTone:'live',
+          image:authRbacScreenshot,
+          imageAlt:'Documentation OpenAPI de l’API Auth RBAC et de ses routes d’authentification.',
+          description:'API FastAPI avec JWT et rôles user, editor et admin. Les permissions sont contrôlées côté serveur et couvertes par des tests.',
+          technologies:['FastAPI','JWT','RBAC','SQLAlchemy','pytest'],
+          links:[
+            { label:'Ouvrir la démo API', url:'https://auth-rbac-api-hvlo.onrender.com/docs', primary:true },
+            { label:'Code', url:'https://github.com/Novembo/auth-rbac-api' },
+          ],
+        },
+        {
+          slug:'todo-api',
+          icon:'list',
+          category:'api',
+          type:'API · Gestion de données',
+          name:'API de gestion de tâches',
+          status:'Démo publique',
+          statusTone:'live',
+          image:todoApiScreenshot,
+          imageAlt:'Documentation OpenAPI de l’API TODO et de ses opérations de gestion de tâches.',
+          description:'API Django REST Framework avec opérations CRUD, validation, pagination et schéma OpenAPI. Démo publique à utiliser sans données personnelles.',
+          technologies:['Django','Django REST Framework','PostgreSQL','OpenAPI','pytest'],
+          links:[
+            { label:'Ouvrir la démo API', url:'https://novembo-todo-api.onrender.com/api/docs/', primary:true },
+            { label:'Code', url:'https://github.com/Novembo/TODO' },
+          ],
+        },
+        {
+          slug:'word-ladder',
+          icon:'puzzle',
+          category:'app',
+          type:'Application · EdTech',
+          name:'Word Ladder',
+          status:'Projet non déployé',
+          statusTone:'local',
+          image:wordLadderScreenshot,
+          imageAlt:'Écran d’accueil du jeu éducatif Word Ladder, qui propose un défi de vocabulaire.',
+          description:'Jeu de vocabulaire en français, anglais et espagnol, avec progression par niveaux, API FastAPI et parties en temps réel. Démo locale, sans publication publique pour le moment.',
+          technologies:['Vue 3','FastAPI','WebSockets','Redis','SQLite'],
+          links:[
+            { label:'Code', url:'https://github.com/Novembo/wordladder-mvp', primary:true },
+          ],
+        },
+        {
+          slug:'modi-docx',
+          icon:'file',
+          category:'desktop',
+          type:'Application Windows · Python',
+          name:'modiDocx',
+          status:'Application de bureau',
+          statusTone:'local',
+          image:modiDocxScreenshot,
+          imageAlt:'Aperçu produit de modiDocx et de son interface de remplacement de texte Word.',
+          description:'Application Windows qui applique des règles de remplacement dans les paragraphes et tableaux de fichiers Word, puis génère une copie modifiée.',
+          technologies:['Python','Tkinter','python-docx','PyInstaller'],
+          links:[
+            { label:'Code', url:'https://github.com/Novembo/modiDocx', primary:true },
+          ],
+        },
+      ],
+      projectFilters: [
+        { value:'all', label:'Tous' },
+        { value:'web', label:'Web' },
+        { value:'api', label:'API' },
+        { value:'app', label:'Applications' },
+        { value:'desktop', label:'Windows' },
+      ],
+      activeProjectFilter:'all',
       workflowSteps: [
         { title:'Diagnostic', text:'On clarifie le besoin, les objectifs, les contraintes techniques et les risques métier.' },
         { title:'Plan', text:'Je propose une architecture simple, des livrables clairs, les délais et les limites du projet.' },
@@ -23,10 +122,31 @@ createApp({
         { title:'Suivi', text:'Je garde une communication claire après livraison pour corriger les défauts et sécuriser la maintenance.' },
       ],
       skillGroups: [
-        { name:'Backend', items:['Python','Django','FastAPI','REST API','JWT','RBAC'] },
-        { name:'Données', items:['PostgreSQL','MySQL','SQLite','MongoDB'] },
-        { name:'Outils', items:['Git / GitHub','Docker','CI/CD (GitHub Actions)','Postman','pytest'] },
-        { name:'Frontend (pour projets complets)', items:['Vue.js','React','React Native','TypeScript'] },
+        { name:'Backend & API', icon:'terminal', items:['Python','FastAPI','Django','Django REST Framework','API REST','SQLAlchemy','Pydantic','OpenAPI'] },
+        { name:'Données', icon:'database', items:['PostgreSQL','SQLite','Redis','MySQL','MongoDB','SQL'] },
+        { name:'Sécurité & qualité', icon:'lock', items:['JWT','RBAC','Validation','pytest','Tests API','CORS'] },
+        { name:'Interfaces', icon:'browser', items:['HTML','CSS','JavaScript','Vue 3','React','React Native','TypeScript'] },
+        { name:'Outils & livraison', icon:'cloud', items:['Git / GitHub','Docker','GitHub Actions','CI/CD','Postman','Render','GitHub Pages'] },
+      ],
+      credentials: [
+        {
+          icon:'chip', kind:'Formation spécialisée', title:'Python & Intelligence Artificielle',
+          details:'Option vision artificielle (computer vision) · L.E.S.C.A.L. — Cedoriase Academy · Abomey-Calavi. Attestation de fin de formation.',
+          date:'12 mois · août 2022 – août 2023', featured:true,
+          image:'https://images.unsplash.com/photo-1782338938751-8f830451bc47?auto=format&fit=crop&w=1200&q=82',
+          imageAlt:'Circuit numérique lumineux évoquant l’intelligence artificielle et le traitement des données.',
+          credit:'Brecht Corbeel / Unsplash', sourceUrl:'https://unsplash.com/photos/futuristic-circuit-board-with-glowing-pathways-and-central-processor-jBe65HKtuds',
+        },
+        {
+          icon:'code', kind:'Certification', title:'Python, JavaScript & HTML',
+          details:'Certifications de programmation obtenues sur SoloLearn.',
+          date:'août – septembre 2023',
+        },
+        {
+          icon:'database', kind:'Certification', title:'SQL',
+          details:'Certification SQL obtenue sur DataCamp.',
+          date:'février 2026',
+        },
       ],
       plans: [
         { name:'Revue de code', price:15000, unit:'FCFA', note:'À l\'unité, par module ou petit repo', features:['Rapport de relecture détaillé','Recommandations priorisées','1 aller-retour de clarification'] },
@@ -49,11 +169,39 @@ createApp({
       trackedOrder: null,
       trackingStatus: { ok:false, msg:'' },
       currentOrderRef: null,
+      paymentDemoPlanIndex: 1,
+      paymentDemoMethod: 'mtn',
+      paymentDemoStep: 'method',
+      paymentDemoResult: 'success',
       revealObserver: null,
     }
   },
   computed:{
-    // Pré-calcule le contenu du terminal avec coloration syntaxique légère
+    visibleProjects(){
+      if (this.activeProjectFilter === 'all') return this.projects;
+      return this.projects.filter(project => project.category === this.activeProjectFilter);
+    },
+    paymentDemoPlan(){
+      return this.plans[this.paymentDemoPlanIndex] || this.plans[0];
+    },
+    paymentDemoDeposit(){
+      return Math.round(this.paymentDemoPlan.price * 0.7);
+    },
+    paymentDemoBalance(){
+      return this.paymentDemoPlan.price - this.paymentDemoDeposit;
+    },
+    paymentDemoMethodLabel(){
+      return {
+        mtn:'MTN Mobile Money',
+        celtiis:'Celtiis Cash',
+        card:'Carte bancaire',
+      }[this.paymentDemoMethod];
+    },
+  },
+  watch:{
+    activeProjectFilter(){
+      this.$nextTick(() => this.observeNewReveals());
+    },
   },
   mounted(){
     this.typeText();
@@ -102,6 +250,13 @@ createApp({
       document.documentElement.classList.add('motion-ready');
       targets.forEach(target => this.revealObserver.observe(target));
     },
+    observeNewReveals(){
+      if (!this.revealObserver) return;
+      const appRoot = document.getElementById('app');
+      if (!appRoot) return;
+      appRoot.querySelectorAll('[data-reveal]:not(.is-visible)')
+        .forEach(target => this.revealObserver.observe(target));
+    },
     typeText(){
       let i = 0;
       const step = () => {
@@ -119,7 +274,7 @@ createApp({
     buildTerminal(){
       const data = {
         nom: "Obed VODOUHE",
-        role: "Développeur Full-Stack Python",
+        role: "Développeur Full-Stack Python & IA",
         base: "Cotonou, Bénin",
         stack: ["Python", "FastAPI", "Django", "PostgreSQL"],
         disponible: true
@@ -169,6 +324,22 @@ createApp({
       .catch(() => {
         this.testimonialStatus = { sending:false, ok:false, msg:"Le serveur n'est pas joignable pour le moment. Réessaie plus tard." };
       });
+    },
+    openPaymentDemo(){
+      this.paymentDemoStep = 'method';
+      this.paymentDemoResult = 'success';
+      bootstrap.Modal.getOrCreateInstance(document.getElementById('paymentDemoModal')).show();
+    },
+    continuePaymentDemo(){
+      this.paymentDemoStep = 'confirmation';
+    },
+    finishPaymentDemo(result){
+      this.paymentDemoResult = result;
+      this.paymentDemoStep = 'result';
+    },
+    resetPaymentDemo(){
+      this.paymentDemoStep = 'method';
+      this.paymentDemoResult = 'success';
     },
     openReserveModal(plan){
       this.selectedPlan = plan;

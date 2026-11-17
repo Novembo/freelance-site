@@ -3,13 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Obed VODOUHE — Développeur Full-Stack Python</title>
-<meta name="description" content="Revue de code, développement d'API REST, tests, et projets web ou mobile complets en Python, par Obed VODOUHE, développeur Full-Stack freelance.">
-<meta name="keywords" content="Obed VODOUHE, développeur Python, backend FastAPI, Django, API REST, sécurité backend, tests automatisés, freelance, web, mobile, Kkiapay">
-<meta property="og:title" content="Obed VODOUHE — Développeur Python & Full-Stack">
-<meta property="og:description" content="API REST, sécurité backend, intégration web & mobile, tests, livraison professionnelle avec Python.">
+<title>Obed VODOUHE — Développeur Full-Stack Python &amp; IA</title>
+<meta name="description" content="Portfolio d’Obed VODOUHE, développeur Full-Stack Python &amp; IA à Cotonou : API, applications web, computer vision et projets documentés.">
+<meta name="keywords" content="Obed VODOUHE, développeur Python, FastAPI, Django, API REST, JWT, RBAC, Vue, React Native, tests automatisés, freelance">
+<meta property="og:title" content="Obed VODOUHE — Développeur Full-Stack Python &amp; IA">
+<meta property="og:description" content="Découvrez les projets, les compétences et l’approche d’Obed VODOUHE en Python, web, IA et computer vision.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#0D1321">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400..800&family=Space+Grotesk:wght@400..700&display=swap" rel="stylesheet">
 
 <!-- Configuration : adresse de l'API. Vide = même domaine.
      Sur GitHub Pages, le workflow remplace __API_BASE__ par l'URL du backend. -->
@@ -26,8 +29,25 @@
 
 <div id="app">
 
+  <svg class="icon-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <symbol id="icon-browser" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M7 6.5h.01M10 6.5h.01M7 13h4m-4 3h10"/></symbol>
+    <symbol id="icon-lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3m-4 4v3"/></symbol>
+    <symbol id="icon-list" viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11M4 6l1 1 2-2m-3 7 1 1 2-2m-3 7 1 1 2-2"/></symbol>
+    <symbol id="icon-puzzle" viewBox="0 0 24 24"><path d="M5 4h5a2 2 0 1 1 4 0h5v5a2 2 0 1 0 0 4v6h-5a2 2 0 1 0-4 0H5v-5a2 2 0 1 1 0-4z"/></symbol>
+    <symbol id="icon-file" viewBox="0 0 24 24"><path d="M6 3h8l5 5v13H6zM14 3v6h5m-9 4h5m-5 4h5"/></symbol>
+    <symbol id="icon-code" viewBox="0 0 24 24"><path d="m8 8-4 4 4 4m8-8 4 4-4 4m-3-11-2 14"/></symbol>
+    <symbol id="icon-api" viewBox="0 0 24 24"><circle cx="5" cy="12" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="19" cy="18" r="2"/><path d="m7 11 10-4M7 13l10 4"/></symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/><path d="M21 12a9 9 0 1 1-3-6.7"/></symbol>
+    <symbol id="icon-book" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v17H6.5A2.5 2.5 0 0 0 4 22zM4 5v17m5-15h7m-7 4h7"/></symbol>
+    <symbol id="icon-terminal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="m7 9 3 3-3 3m6 0h4"/></symbol>
+    <symbol id="icon-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></symbol>
+    <symbol id="icon-cloud" viewBox="0 0 24 24"><path d="M7 18a5 5 0 0 1-.5-10A6 6 0 0 1 18 9a4.5 4.5 0 1 1 0 9zM12 12v7m-3-3 3 3 3-3"/></symbol>
+    <symbol id="icon-chip" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 9h6v6H9zM9 2v4m6-4v4M9 18v4m6-4v4M2 9h4m-4 6h4m12-6h4m-4 6h4"/></symbol>
+    <symbol id="icon-award" viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="m8 12-1 9 5-3 5 3-1-9"/></symbol>
+  </svg>
+
   <!-- NAV -->
-  <nav class="navbar navbar-expand-md navbar-custom fixed-top py-3">
+  <nav class="navbar navbar-expand-md navbar-custom fixed-top py-3" aria-label="Navigation principale">
     <div class="container">
       <a class="navbar-brand" href="#top">obed<span class="dot">.</span>dev</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Ouvrir ou fermer le menu de navigation" style="border-color:var(--line)">
@@ -36,15 +56,16 @@
       <div class="collapse navbar-collapse justify-content-end" id="navMenu">
         <a class="nav-link" href="#services">Services</a>
         <a class="nav-link" href="#competences">Compétences</a>
-        <a class="nav-link" href="#projets-complets">Projets complets</a>
+        <a class="nav-link" href="#realisations">Réalisations</a>
         <a class="nav-link" href="#tarifs">Tarifs</a>
-        <a class="nav-link" href="#contact">Contact</a>
+        <a class="nav-link nav-contact" href="#contact">Parlons de votre projet <span aria-hidden="true">↗</span></a>
       </div>
     </div>
   </nav>
 
   <!-- HERO -->
   <header class="hero" id="top" style="padding-top:8.5rem;">
+    <img class="hero-ambient-image" src="https://images.unsplash.com/photo-1730130054404-c2bd8e7038c2?auto=format&amp;fit=crop&amp;w=1500&amp;q=82" alt="" aria-hidden="true" fetchpriority="high">
     <div class="container">
       <div class="row align-items-center g-5">
         <div class="col-lg-6">
@@ -53,7 +74,8 @@
             Disponible pour vos projets
             <span class="hero-location">· Cotonou, Bénin</span>
           </div>
-          <h1 class="mb-3">Des applications Python <span class="accent">solides</span>, livrées sans détour.</h1>
+          <h1 class="mb-3">Développeur Full-Stack <span class="accent">Python &amp; IA</span></h1>
+          <p class="hero-tagline">Des applications solides, du backend aux expériences intelligentes.</p>
           <p class="hero-lead">{{ typedText }}<span class="cursor" :style="{height: '1.1em'}" aria-hidden="true"></span></p>
           <div class="d-flex gap-3 mt-4 flex-wrap">
             <a href="#services" class="btn btn-signal">Découvrir mes services <span aria-hidden="true">↘</span></a>
@@ -64,7 +86,7 @@
           </div>
         </div>
         <div class="col-lg-6">
-          <div class="terminal" aria-label="Extrait de réponse de l'API Obed">
+          <div class="terminal hero-terminal" aria-label="Extrait de réponse de l'API Obed">
             <div class="terminal-bar">
               <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
               <span class="path">obed@backend:~$ curl /obed</span>
@@ -72,10 +94,68 @@
             </div>
             <div class="terminal-body" v-html="terminalHtml"></div>
           </div>
+          <a class="image-credit" href="https://unsplash.com/photos/a-man-sitting-in-front-of-a-computer-wearing-headphones-kQIdjLbCghA" target="_blank" rel="noopener noreferrer">Photo : Olumuyiwa Sobowale / Unsplash ↗</a>
         </div>
       </div>
     </div>
   </header>
+
+  <!-- REPÈRES -->
+  <section class="proof-strip" aria-label="Expérience en chiffres">
+    <div class="container proof-grid">
+      <div class="proof-metric" data-reveal><strong>6 ans</strong><span>de pratique Python</span></div>
+      <div class="proof-metric" data-reveal><strong>3+ ans</strong><span>en entreprise</span></div>
+      <div class="proof-metric" data-reveal><strong>5</strong><span>projets documentés</span></div>
+      <div class="proof-metric" data-reveal><strong>3</strong><span>démos publiques</span></div>
+    </div>
+  </section>
+
+  <!-- RÉALISATIONS -->
+  <section id="realisations" class="portfolio-section">
+    <div class="container">
+      <div class="eyebrow" data-reveal>PROJETS SÉLECTIONNÉS</div>
+      <h2 class="section-title" data-reveal>Du code concret, avec des preuves.</h2>
+      <p class="section-sub mb-4" data-reveal>Une sélection de projets réalisés : découvrez les captures, les choix techniques et les démos disponibles.</p>
+      <div class="project-filters" role="group" aria-label="Filtrer les réalisations" data-reveal>
+        <button
+          v-for="filter in projectFilters"
+          :key="filter.value"
+          type="button"
+          class="project-filter"
+          :class="{ 'is-active': activeProjectFilter === filter.value }"
+          :aria-pressed="activeProjectFilter === filter.value"
+          @click="activeProjectFilter = filter.value"
+        >{{ filter.label }}</button>
+      </div>
+      <div class="row g-4" aria-live="polite">
+        <article class="col-md-6 col-xl-4" v-for="(project, index) in visibleProjects" :key="project.slug">
+          <div class="portfolio-card card-flat" data-reveal :style="{ '--reveal-delay': (index * 70) + 'ms' }">
+            <figure class="project-preview">
+              <img :src="project.image" :alt="project.imageAlt" loading="lazy" decoding="async">
+              <figcaption class="project-status" :class="'status-' + project.statusTone">{{ project.status }}</figcaption>
+              <span class="project-category-icon" aria-hidden="true"><svg><use :href="'#icon-' + project.icon"></use></svg></span>
+            </figure>
+            <div class="project-type">{{ project.type }}</div>
+            <h3>{{ project.name }}</h3>
+            <p>{{ project.description }}</p>
+            <ul class="project-tech-list" aria-label="Technologies utilisées">
+              <li v-for="technology in project.technologies" :key="technology">{{ technology }}</li>
+            </ul>
+            <div class="project-links">
+              <a
+                v-for="link in project.links"
+                :key="link.url"
+                :href="link.url"
+                target="_blank"
+                rel="noopener noreferrer"
+                :class="link.primary ? 'project-link project-link-primary' : 'project-link'"
+              >{{ link.label }} <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
 
   <!-- SERVICES -->
   <section id="services">
@@ -86,6 +166,7 @@
       <div class="row g-4">
         <div class="col-md-6 col-lg-3" v-for="(s, index) in services" :key="s.path" :style="{ '--reveal-delay': (index * 80) + 'ms' }">
           <div class="card-flat service-card" data-reveal>
+            <span class="illustration-icon service-icon" aria-hidden="true"><svg><use :href="'#icon-' + s.icon"></use></svg></span>
             <span class="endpoint-tag"><span aria-hidden="true">↗</span> {{ s.path }}</span>
             <h3>{{ s.title }}</h3>
             <p>{{ s.desc }}</p>
@@ -105,7 +186,7 @@
       <div class="row g-4">
         <div class="col-md-6 col-lg-3" v-for="(step, index) in workflowSteps" :key="step.title" :style="{ '--reveal-delay': (index * 80) + 'ms' }">
           <div class="card-flat workflow-card" data-reveal>
-            <div class="step-number">0{{ index + 1 }}</div>
+          <div class="step-number"><span>0{{ index + 1 }}</span></div>
             <h3>{{ step.title }}</h3>
             <p>{{ step.text }}</p>
           </div>
@@ -119,14 +200,49 @@
     <div class="container">
       <div class="eyebrow" data-reveal>ENVIRONNEMENT TECHNIQUE</div>
       <h2 class="section-title" data-reveal>Les outils au service du besoin.</h2>
-      <p class="section-sub mb-4" data-reveal>Une stack choisie pour la lisibilité, la fiabilité et l’évolution des projets.</p>
+      <p class="section-sub mb-4" data-reveal>Six ans de pratique Python et plus de trois ans en entreprise, entre conception backend, qualité logicielle et interfaces.</p>
       <div class="skills-grid mb-4">
         <div v-for="(group, index) in skillGroups" :key="group.name" class="skill-group" data-reveal :style="{ '--reveal-delay': (index * 70) + 'ms' }">
-          <div class="skill-group-title">{{ group.name }}</div>
+          <div class="skill-group-title"><svg class="group-icon" aria-hidden="true"><use :href="'#icon-' + group.icon"></use></svg>{{ group.name }}</div>
           <span class="skill-chip" v-for="sk in group.items" :key="sk">{{ sk }}</span>
         </div>
       </div>
-      <div class="cert-chip" data-reveal><span aria-hidden="true">✓</span> Certification SQL — DataCamp, février 2026</div>
+      <h3 class="credential-heading" data-reveal>Formations &amp; certifications</h3>
+      <div class="credential-grid">
+        <article v-for="(credential, index) in credentials" :key="credential.title" class="credential-card" :class="{ 'credential-card-featured': credential.featured }" data-reveal :style="{ '--reveal-delay': (index * 90) + 'ms' }">
+          <img v-if="credential.image" class="credential-image" :src="credential.image" :alt="credential.imageAlt" loading="lazy" decoding="async">
+          <div class="credential-icon" aria-hidden="true"><svg><use :href="'#icon-' + credential.icon"></use></svg></div>
+          <div class="credential-kind">{{ credential.kind }}</div>
+          <h4>{{ credential.title }}</h4>
+          <p>{{ credential.details }}</p>
+          <span class="credential-date">{{ credential.date }}</span>
+          <a v-if="credential.sourceUrl" class="credential-credit" :href="credential.sourceUrl" target="_blank" rel="noopener noreferrer">Image : {{ credential.credit }} ↗</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- MOCKUPS BOOTSTRAP ET TAILWIND -->
+  <section id="mockups" class="mockup-section">
+    <div class="container">
+      <div class="eyebrow" data-reveal>MAQUETTES INTERACTIVES</div>
+      <h2 class="section-title" data-reveal>Deux façons de donner forme à une interface.</h2>
+      <p class="section-sub mb-5" data-reveal>Exemples isolés pour comparer Bootstrap et Tailwind CSS, chacun chargé depuis son CDN.</p>
+      <div class="row g-4">
+        <article class="col-lg-6" data-reveal>
+          <div class="mockup-shell">
+            <div class="mockup-heading"><span class="mockup-framework-mark bootstrap-mark">B</span><div><strong>Console API</strong><span>Mockup Bootstrap 5 · CDN</span></div><span class="mockup-live"><i></i> Aperçu</span></div>
+            <iframe title="Maquette de tableau de bord avec Bootstrap 5 chargé par CDN" loading="lazy" sandbox="" class="framework-frame" srcdoc="<!doctype html><html lang=&quot;fr&quot;><head><meta charset=&quot;utf-8&quot;><meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;><link href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/css/bootstrap.min.css&quot; rel=&quot;stylesheet&quot; integrity=&quot;sha384-yEPZ7jP9S0QKiUQ0m3jjsO4ProIW7wvR9gXkI7JOGa2XVsw53Yke2bsdkBbjmmiX&quot; crossorigin=&quot;anonymous&quot;><style>body{background:#f3f6fa;color:#182538;font-family:system-ui;padding:22px}.mini-nav{background:#101828 url('https://images.unsplash.com/photo-1790746717373-1226c4697974?auto=format&amp;fit=crop&amp;w=900&amp;q=78') center 44%/cover;color:white;border-radius:14px;padding:13px 16px;box-shadow:inset 0 0 0 100px rgba(16,24,40,.45)}.mini-dot{display:inline-block;width:8px;height:8px;background:#61d5a5;border-radius:100%;margin-right:7px}.metric{border:1px solid #e1e8ef;border-radius:14px}.metric small{color:#607086}.metric strong{font-size:1.35rem}.tag{background:#e5f4eb;color:#17633b}.chart{height:94px;background:linear-gradient(170deg,transparent 45%,#c1e5dd 46%,#c1e5dd 49%,transparent 50%),linear-gradient(135deg,#eef8f6,#fff);border-radius:12px}</style></head><body><div class=&quot;container-fluid p-0&quot;><div class=&quot;mini-nav d-flex justify-content-between align-items-center mb-4&quot;><strong>api<span style=&quot;color:#f2b705&quot;>.</span>cloud</strong><span class=&quot;small&quot;><i class=&quot;mini-dot&quot;></i>Services opérationnels</span></div><div class=&quot;d-flex justify-content-between align-items-end mb-3&quot;><div><small class=&quot;text-secondary&quot;>ESPACE DÉVELOPPEUR</small><h1 class=&quot;h4 mb-0&quot;>Vue d’ensemble</h1></div><span class=&quot;badge tag rounded-pill&quot;>Production</span></div><div class=&quot;row g-3 mb-3&quot;><div class=&quot;col-6&quot;><div class=&quot;metric bg-white p-3 h-100&quot;><small>Requêtes API</small><div><strong>24,8k</strong> <span class=&quot;text-success small&quot;>+12 %</span></div></div></div><div class=&quot;col-6&quot;><div class=&quot;metric bg-white p-3 h-100&quot;><small>Disponibilité</small><div><strong>99,98%</strong></div></div></div></div><div class=&quot;metric bg-white p-3&quot;><div class=&quot;d-flex justify-content-between mb-3&quot;><strong>Activité de l’API</strong><span class=&quot;small text-secondary&quot;>7 derniers jours</span></div><div class=&quot;chart&quot;></div></div></div></body></html>"></iframe>
+          </div>
+        </article>
+        <article class="col-lg-6" data-reveal>
+          <div class="mockup-shell">
+            <div class="mockup-heading"><span class="mockup-framework-mark tailwind-mark">✳</span><div><strong>Vision Lab</strong><span>Mockup Tailwind CSS · Play CDN</span></div><span class="mockup-live"><i></i> Aperçu</span></div>
+            <iframe title="Maquette de suivi d’un modèle de vision artificielle avec Tailwind CSS chargé par CDN" loading="lazy" sandbox="allow-scripts" class="framework-frame" srcdoc="<!doctype html><html lang=&quot;fr&quot;><head><meta charset=&quot;utf-8&quot;><meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;><script src=&quot;https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4&quot;></script></head><body class=&quot;bg-slate-950 p-5 font-sans text-slate-100&quot;><main class=&quot;mx-auto max-w-lg overflow-hidden rounded-3xl border border-white/10 bg-slate-900 shadow-2xl&quot;><div class=&quot;flex items-center justify-between border-b border-white/10 px-5 py-4&quot;><div class=&quot;flex items-center gap-3&quot;><div class=&quot;grid size-10 place-items-center rounded-xl bg-teal-400/15 text-xl text-teal-300&quot;>◉</div><div><p class=&quot;text-xs uppercase tracking-[.18em] text-slate-400&quot;>Computer vision</p><h1 class=&quot;font-semibold&quot;>Vision Lab</h1></div></div><span class=&quot;rounded-full bg-emerald-400/10 px-3 py-1 text-xs font-medium text-emerald-300&quot;>Modèle actif</span></div><div class=&quot;p-5&quot;><div class=&quot;rounded-2xl border border-white/10 bg-gradient-to-br from-indigo-500/20 via-slate-800 to-teal-400/10 p-6&quot;><div class=&quot;mb-5 flex items-center justify-between&quot;><span class=&quot;text-sm text-slate-300&quot;>Reconnaissance d’objets</span><span class=&quot;text-xs text-teal-300&quot;>v2.4.1</span></div><div class=&quot;flex h-36 items-center justify-center rounded-xl border border-dashed border-teal-300/30 bg-slate-950/50&quot;><div class=&quot;text-center&quot;><div class=&quot;mx-auto mb-2 grid size-14 place-items-center rounded-2xl bg-teal-400/10 text-3xl text-teal-200&quot;>⌘</div><p class=&quot;text-sm font-medium&quot;>Analyse en temps réel</p><p class=&quot;text-xs text-slate-400&quot;>Confiance du modèle · 98,4 %</p></div></div></div><div class=&quot;mt-4 grid grid-cols-3 gap-3&quot;><div class=&quot;rounded-xl bg-white/5 p-3&quot;><p class=&quot;text-xs text-slate-400&quot;>Images</p><strong class=&quot;text-lg&quot;>1 284</strong></div><div class=&quot;rounded-xl bg-white/5 p-3&quot;><p class=&quot;text-xs text-slate-400&quot;>Précision</p><strong class=&quot;text-lg text-teal-300&quot;>98,4 %</strong></div><div class=&quot;rounded-xl bg-white/5 p-3&quot;><p class=&quot;text-xs text-slate-400&quot;>Latence</p><strong class=&quot;text-lg&quot;>42 ms</strong></div></div></div><div class=&quot;flex items-center justify-between border-t border-white/10 px-5 py-3 text-xs text-slate-400&quot;><span>Dernière analyse · à l’instant</span><span class=&quot;text-teal-300&quot;>Pipeline prêt ↗</span></div></main></body></html>"></iframe>
+          </div>
+        </article>
+      </div>
+      <p class="mockup-note" data-reveal>Tailwind Play CDN est utilisé ici uniquement pour la démonstration isolée ; le site principal reste compilé avec Vite. Visuel cloud : <a href="https://unsplash.com/photos/server-towers-under-translucent-dome-dF-W2RVhnQo" target="_blank" rel="noopener noreferrer">Brecht Corbeel / Unsplash ↗</a></p>
     </div>
   </section>
 
@@ -183,6 +299,13 @@
         </div>
       </div>
       <p class="payment-note">Paiement sécurisé par Mobile Money — MTN Mobile Money ou Celtiis Cash — ou par carte bancaire, via Kkiapay.</p>
+      <div class="payment-demo-launch">
+        <div>
+          <strong>Découvrir le parcours de paiement</strong>
+          <p>Maquette interactive · aucune transaction réelle</p>
+        </div>
+        <button type="button" class="btn btn-outline-wire" @click="openPaymentDemo">Lancer la simulation</button>
+      </div>
       <p class="status-msg" :class="paymentStatus.ok ? 'status-ok' : 'status-err'" v-if="paymentStatus.msg">{{ paymentStatus.msg }}</p>
     </div>
   </section>
@@ -293,7 +416,7 @@
             <img :src="ownerPhoto" alt="Obed VODOUHE" class="owner-photo">
             <div>
               <div class="owner-name">Obed VODOUHE</div>
-              <div class="owner-role">Développeur Full-Stack Python</div>
+              <div class="owner-role">Développeur Full-Stack Python &amp; IA</div>
             </div>
           </div>
           <p class="section-sub">Je réponds personnellement, sous 24 à 48h.</p>
@@ -366,6 +489,99 @@
     </div>
   </div>
 
+  <!-- MAQUETTE DE PAIEMENT SANS TRANSACTION -->
+  <div class="modal fade payment-demo-modal" id="paymentDemoModal" tabindex="-1" aria-labelledby="paymentDemoTitle" aria-describedby="paymentDemoDisclaimer" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div>
+            <p class="demo-eyebrow">MAQUETTE INTERACTIVE</p>
+            <h5 class="modal-title" id="paymentDemoTitle">Aperçu du paiement</h5>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+        </div>
+        <div class="modal-body">
+          <p class="demo-safety-note" id="paymentDemoDisclaimer">Cette simulation n’envoie aucune demande de paiement, ne crée aucune commande et ne collecte aucune donnée bancaire ou personnelle.</p>
+
+          <div class="demo-order-summary">
+            <label for="paymentDemoPlan">
+              <span>Offre simulée</span>
+              <select id="paymentDemoPlan" class="form-select form-control-dark" v-model.number="paymentDemoPlanIndex" :disabled="paymentDemoStep !== 'method'">
+                <option v-for="(plan, index) in plans" :key="plan.name" :value="index">{{ plan.name }}</option>
+              </select>
+            </label>
+            <div><span>Total indicatif</span><strong>{{ paymentDemoPlan.price.toLocaleString('fr-FR') }} {{ paymentDemoPlan.unit }}</strong></div>
+            <div><span>Acompte · 70 %</span><strong>{{ paymentDemoDeposit.toLocaleString('fr-FR') }} FCFA</strong></div>
+            <div><span>Solde à la livraison · 30 %</span><strong>{{ paymentDemoBalance.toLocaleString('fr-FR') }} FCFA</strong></div>
+          </div>
+
+          <ol class="payment-demo-steps" aria-label="Étapes de la simulation">
+            <li :class="{ 'is-current': paymentDemoStep === 'method', 'is-done': paymentDemoStep !== 'method' }" :aria-current="paymentDemoStep === 'method' ? 'step' : null"><span>01</span><span>Moyen</span></li>
+            <li :class="{ 'is-current': paymentDemoStep === 'confirmation', 'is-done': paymentDemoStep === 'result' }" :aria-current="paymentDemoStep === 'confirmation' ? 'step' : null"><span>02</span><span>Confirmation</span></li>
+            <li :class="{ 'is-current': paymentDemoStep === 'result' }" :aria-current="paymentDemoStep === 'result' ? 'step' : null"><span>03</span><span>Résultat</span></li>
+          </ol>
+
+          <div v-if="paymentDemoStep === 'method'" class="payment-demo-stage">
+            <h6>Choisissez un moyen à illustrer</h6>
+            <div class="payment-demo-methods" role="group" aria-label="Moyen de paiement simulé">
+              <button type="button" class="demo-method" :class="{ 'is-selected': paymentDemoMethod === 'mtn' }" :aria-pressed="paymentDemoMethod === 'mtn'" @click="paymentDemoMethod = 'mtn'">
+                <span class="demo-method-top"><span class="demo-method-mark" aria-hidden="true">MTN</span><span v-if="paymentDemoMethod === 'mtn'" class="demo-method-check" aria-hidden="true">✓</span></span>
+                <span>MTN Mobile Money</span>
+              </button>
+              <button type="button" class="demo-method" :class="{ 'is-selected': paymentDemoMethod === 'celtiis' }" :aria-pressed="paymentDemoMethod === 'celtiis'" @click="paymentDemoMethod = 'celtiis'">
+                <span class="demo-method-top"><span class="demo-method-mark" aria-hidden="true">C+</span><span v-if="paymentDemoMethod === 'celtiis'" class="demo-method-check" aria-hidden="true">✓</span></span>
+                <span>Celtiis Cash</span>
+              </button>
+              <button type="button" class="demo-method" :class="{ 'is-selected': paymentDemoMethod === 'card' }" :aria-pressed="paymentDemoMethod === 'card'" @click="paymentDemoMethod = 'card'">
+                <span class="demo-method-top"><span class="demo-method-mark" aria-hidden="true">CB</span><span v-if="paymentDemoMethod === 'card'" class="demo-method-check" aria-hidden="true">✓</span></span>
+                <span>Carte bancaire</span>
+              </button>
+            </div>
+          </div>
+
+          <div v-else-if="paymentDemoStep === 'confirmation'" class="payment-demo-stage">
+            <h6>Étape de confirmation · {{ paymentDemoMethodLabel }}</h6>
+            <div v-if="paymentDemoMethod === 'card'" class="demo-bank-card" aria-label="Maquette visuelle de carte bancaire">
+              <span class="demo-card-heading">CARTE BANCAIRE · DÉMO</span>
+              <span class="demo-card-chip" aria-hidden="true"></span>
+              <span class="demo-card-number">•••• •••• •••• 4242</span>
+              <span class="demo-card-footer"><span>CLIENT DÉMO</span><span>••/••</span></span>
+            </div>
+            <div v-else class="demo-mobile-preview">
+              <span class="demo-provider-name">{{ paymentDemoMethodLabel }}</span>
+              <h6>Demande de paiement fictive</h6>
+              <div class="demo-mobile-amount">{{ paymentDemoDeposit.toLocaleString('fr-FR') }} FCFA</div>
+              <p>Dans un vrai parcours, la confirmation s’effectuerait sur le téléphone. Ici, tout reste simulé.</p>
+            </div>
+            <p class="demo-caption">Aucun code, numéro de téléphone ou numéro de carte n’est demandé ni enregistré.</p>
+          </div>
+
+          <div v-else class="payment-demo-result" :class="paymentDemoResult === 'success' ? 'is-success' : 'is-declined'" aria-live="polite">
+            <span class="demo-result-mark" aria-hidden="true">{{ paymentDemoResult === 'success' ? '✓' : '!' }}</span>
+            <h6>{{ paymentDemoResult === 'success' ? 'Confirmation simulée' : 'Refus simulé' }}</h6>
+            <p v-if="paymentDemoResult === 'success'">L’acompte de {{ paymentDemoDeposit.toLocaleString('fr-FR') }} FCFA est accepté dans cette maquette. Le solde de {{ paymentDemoBalance.toLocaleString('fr-FR') }} FCFA resterait dû à la livraison. Aucun débit n’a eu lieu.</p>
+            <p v-else>Le paiement est refusé dans cette maquette. Aucune commande n’a été créée et aucun débit n’a eu lieu.</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <template v-if="paymentDemoStep === 'method'">
+            <button type="button" class="btn btn-outline-wire" data-bs-dismiss="modal">Fermer</button>
+            <button type="button" class="btn btn-signal" @click="continuePaymentDemo">Continuer</button>
+          </template>
+          <template v-else-if="paymentDemoStep === 'confirmation'">
+            <button type="button" class="btn btn-outline-wire" @click="paymentDemoStep = 'method'">Retour</button>
+            <button type="button" class="btn btn-outline-wire" @click="finishPaymentDemo('declined')">Simuler un refus</button>
+            <button type="button" class="btn btn-signal" @click="finishPaymentDemo('success')">Simuler une confirmation</button>
+          </template>
+          <template v-else>
+            <button type="button" class="btn btn-outline-wire" @click="resetPaymentDemo">Recommencer</button>
+            <button type="button" class="btn btn-signal" data-bs-dismiss="modal">Terminer</button>
+          </template>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- MODAL DEVIS -->
   <div class="modal fade" id="quoteModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -403,7 +619,7 @@
 
   <footer>
     <div class="container d-flex flex-wrap justify-content-between gap-2">
-      <div>Obed VODOUHE — Développeur Full-Stack Python, Cotonou</div>
+      <div>Obed VODOUHE — Développeur Full-Stack Python &amp; IA, Cotonou</div>
       <div><a href="https://www.linkedin.com/in/obed-vodouhe" target="_blank">LinkedIn</a></div>
     </div>
   </footer>

@@ -3,15 +3,17 @@
 [![CI](https://github.com/Novembo/freelance-site/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Novembo/freelance-site/actions/workflows/ci.yml)
 [![GitHub Pages](https://github.com/Novembo/freelance-site/actions/workflows/deploy-pages.yml/badge.svg?branch=main)](https://github.com/Novembo/freelance-site/actions/workflows/deploy-pages.yml)
 
-Site vitrine freelance full-stack : interface en **HTML, CSS et JavaScript** (Vue 3, Bootstrap 5 et Vite) et API REST en **Python** (FastAPI, SQLite). Vue et Bootstrap sont installés et compilés localement ; le SDK de paiement Kkiapay reste chargé depuis son fournisseur. Le projet couvre les demandes de devis, les commandes, les témoignages et la vérification des transactions côté serveur.
+Site vitrine freelance **Développeur Full-Stack Python & IA** : interface en **HTML, CSS et JavaScript** (Vue 3, Bootstrap 5 et Vite) et API REST en **Python** (FastAPI, SQLite). Vue et Bootstrap sont compilés localement ; les polices DM Sans et Space Grotesk sont chargées depuis Google Fonts, et le SDK de paiement Kkiapay depuis son fournisseur. Une section de maquettes isolées montre aussi Bootstrap et Tailwind CSS via CDN. Le projet couvre les demandes de devis, les commandes, les témoignages et la vérification des transactions côté serveur.
 
-Ce projet est pensé pour montrer trois choses :
+Ce projet est pensé pour montrer notamment :
 - que je conçois et livre des API backend fiables,
 - que je peux intégrer une maquette ou un cahier des charges en interface web / mobile,
-- que je travaille avec une logique de livraison plus proche d’un service client professionnel que d’une simple démo technique.
+- que je travaille avec une logique de livraison plus proche d’un service client professionnel que d’une simple démo technique,
+- que je peux présenter mes réalisations avec leurs captures, leurs technologies et leur statut de déploiement.
+- qu’une maquette interactive permet de visualiser le parcours 70/30 sans créer de commande, envoyer de requête ou collecter de données de paiement.
 
 - **Langages :** HTML · CSS · JavaScript · Python
-- **Technologies :** Vue 3 · Bootstrap 5 · Vite · FastAPI · SQLite · Kkiapay · pytest · Docker · GitHub Actions
+- **Technologies :** Vue 3 · Bootstrap 5 · Tailwind CSS (maquette CDN) · Vite · Google Fonts (DM Sans, Space Grotesk) · FastAPI · SQLite · Kkiapay · pytest · Docker · GitHub Actions
 
 ## Démo déployée
 
@@ -45,6 +47,7 @@ Ce projet sert donc à présenter une vraie logique de service numérique : clar
 ```
 ├── public/
 │   ├── index.html            → structure HTML de la page
+│   ├── images/projects/      → captures locales des cinq projets présentés
 │   └── src/
 │       ├── main.js           → application Vue et composants Bootstrap
 │       └── style.css         → styles et animations personnalisés
