@@ -647,33 +647,35 @@ section:nth-of-type(even){ background:rgba(255,255,255,.62); }
   .testimonial-bg-sticky{ position:sticky; z-index:0; top:0; height:100vh; margin-bottom:-100vh; overflow:hidden; pointer-events:none; }
   .testimonial-bg-sticky img{ position:absolute; inset:0; display:block; width:100%; height:100%; object-fit:cover; object-position:center 48%; }
   #temoignages > .container{ position:relative; z-index:1; }
-  .testimonial-heading-panel{ max-width:900px; margin:0 0 1.5rem; padding:1.35rem 1.5rem; border:1px solid rgba(220,227,236,.9); border-radius:20px; background:rgba(255,255,255,.95); box-shadow:var(--shadow-soft); }
-  .testimonial-heading-panel .section-title{ margin-bottom:.7rem; }
-  .testimonial-intro .section-sub{ margin:0; }
-  .testimonial-moderation{ display:inline-flex; flex:none; align-items:center; gap:.45rem; color:#17633B; font-size:.75rem; font-weight:700; }
+  .testimonial-heading-panel{ max-width:900px; margin:0 0 1.5rem; padding:0 0 1rem; }
+  .testimonial-heading-panel .eyebrow{ color:#fff; text-shadow:0 1px 4px rgba(0,0,0,.8); }
+  .testimonial-heading-panel .eyebrow::before{ background:#8EE8DB; }
+  .testimonial-heading-panel .section-title{ margin-bottom:.7rem; color:#fff; text-shadow:0 2px 7px rgba(0,0,0,.85); }
+  .testimonial-intro .section-sub{ margin:0; color:#fff; text-shadow:0 1px 5px rgba(0,0,0,.9); }
+  .testimonial-moderation{ display:inline-flex; flex:none; align-items:center; gap:.45rem; color:#fff; font-size:.75rem; font-weight:700; text-shadow:0 1px 4px rgba(0,0,0,.9); }
   .testimonial-moderation svg{ width:1.1rem; height:1.1rem; fill:none; stroke:currentColor; stroke-width:2; }
-  .testimonial-card{ display:flex; height:100%; min-height:225px; flex-direction:column; padding:1.45rem; border:1px solid var(--line); border-radius:20px; background:#fff; box-shadow:0 5px 18px rgba(17,30,50,.04); transition:transform .25s,border-color .25s,box-shadow .25s; }
-  .testimonial-card:hover{ transform:translateY(-4px); border-color:#B7D5D1; box-shadow:var(--shadow-raised); }
-  .testimonial-quote,.testimonial-empty-mark{ color:#B8DCD6; font:700 4.3rem/.8 Georgia,serif; }
+  .testimonial-card{ display:flex; height:100%; min-height:225px; flex-direction:column; padding:1.45rem; border:1px solid rgba(255,255,255,.55); border-radius:20px; background:transparent; box-shadow:none; transition:transform .25s,border-color .25s,box-shadow .25s; }
+  .testimonial-card:hover{ transform:translateY(-4px); border-color:#fff; box-shadow:0 10px 28px rgba(0,0,0,.2); }
+  .testimonial-quote,.testimonial-empty-mark{ color:#D5F1EC; font:700 4.3rem/.8 Georgia,serif; text-shadow:0 2px 5px rgba(0,0,0,.8); }
   .testimonial-card .stars{ margin:0; white-space:nowrap; }
   .empty-stars{ color:#DFE5EB; }
-  .testimonial-card blockquote{ flex:1; margin:1rem 0 1.35rem; color:var(--text); font-size:.96rem; line-height:1.7; }
-  .testimonial-author{ justify-content:flex-start; padding-top:.95rem; border-top:1px solid #EDF0F3; }
+  .testimonial-card blockquote{ flex:1; margin:1rem 0 1.35rem; color:#fff; font-size:.96rem; line-height:1.7; text-shadow:0 1px 5px rgba(0,0,0,.9); }
+  .testimonial-author{ justify-content:flex-start; padding-top:.95rem; border-top:1px solid rgba(255,255,255,.42); }
   .testimonial-avatar{ display:grid; place-items:center; width:38px; height:38px; flex:none; border-radius:50%; color:#075E59; background:#DFF2EE; font-weight:800; }
-  .testimonial-author strong{ color:var(--text); font-size:.82rem; }
-  .verified-review{ margin-left:auto; color:#17633B; font-size:.66rem; font-weight:700; }
-  .testimonial-empty-state{ display:flex; align-items:center; gap:1rem; margin:1rem 0 2rem; padding:1.2rem 1.4rem; border:1px dashed #BFD6D2; border-radius:18px; background:linear-gradient(110deg,#F0F8F6,#fff); }
+  .testimonial-author strong{ color:#fff; font-size:.82rem; text-shadow:0 1px 4px rgba(0,0,0,.9); }
+  .verified-review{ margin-left:auto; color:#E3FFF5; font-size:.66rem; font-weight:700; text-shadow:0 1px 4px rgba(0,0,0,.9); }
+  .testimonial-empty-state{ display:flex; align-items:center; gap:1rem; margin:1rem 0 2rem; padding:1.2rem 0; border:0; border-top:1px solid rgba(255,255,255,.55); border-bottom:1px solid rgba(255,255,255,.55); border-radius:0; background:transparent; }
   .testimonial-empty-mark{ font-size:3.2rem; }
-  .testimonial-empty-state strong{ color:var(--text); font-family:var(--display); }
-  .testimonial-empty-state p{ margin:.25rem 0 0; color:var(--muted); font-size:.82rem; }
+  .testimonial-empty-state strong{ color:#fff; font-family:var(--display); text-shadow:0 1px 5px rgba(0,0,0,.9); }
+  .testimonial-empty-state p{ margin:.25rem 0 0; color:#fff; font-size:.82rem; text-shadow:0 1px 5px rgba(0,0,0,.9); }
   .testimonial-empty-state .btn{ margin-left:auto; white-space:nowrap; }
-  .testimonial-form-wrap{ display:block; width:min(100%,820px); margin:0 auto; padding:clamp(1.4rem,3vw,2rem); border:1px solid rgba(220,227,236,.9); border-radius:20px; background:rgba(255,255,255,.96); box-shadow:var(--shadow-soft); }
-  .testimonial-form-copy h3{ color:var(--text); font-size:1.6rem; }
+  .testimonial-form-wrap{ display:block; width:min(100%,820px); margin:0 auto; padding:clamp(1.4rem,3vw,2rem) 0 0; border-top:1px solid rgba(255,255,255,.55); }
+  .testimonial-form-copy h3{ color:#fff; font-size:1.6rem; text-shadow:0 1px 5px rgba(0,0,0,.9); }
   .testimonial-form-copy{ max-width:600px; margin:0 auto 1.25rem; }
-  .testimonial-form-copy p{ max-width:540px; margin-bottom:0; color:var(--muted); }
+  .testimonial-form-copy p{ max-width:540px; margin-bottom:0; color:#fff; text-shadow:0 1px 5px rgba(0,0,0,.9); }
   .testimonial-form-panel{ min-width:0; }
-  .testimonial-form-panel label{ color:#34435A; }
-  .form-help{ display:block; margin-top:.4rem; color:var(--muted); font-size:.72rem; line-height:1.5; }
+  .testimonial-form-panel label{ color:#fff; text-shadow:0 1px 4px rgba(0,0,0,.9); }
+  .form-help{ display:block; margin-top:.4rem; color:#fff; font-size:.72rem; line-height:1.5; text-shadow:0 1px 4px rgba(0,0,0,.9); }
   .form-privacy-note{ display:inline-block; margin:.65rem 0 0 .7rem; color:var(--muted); font-size:.72rem; }
   .contact-direct-content{ max-width:850px; }
   .contact-intro{ max-width:650px; color:var(--muted); }
