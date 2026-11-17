@@ -643,6 +643,10 @@ section:nth-of-type(even){ background:rgba(255,255,255,.62); }
 
   /* Order tracking, client feedback and contact */
   .testimonial-intro{ display:flex; align-items:center; justify-content:space-between; gap:1rem; margin-bottom:1.5rem; }
+  #temoignages{ position:relative; isolation:isolate; overflow:hidden; background:#EDF3F3; }
+  #temoignages > .container{ position:relative; z-index:0; }
+  .testimonial-bg-image{ position:absolute; inset:0; z-index:-2; display:block; width:100%; height:100%; object-fit:cover; object-position:center 48%; opacity:.2; }
+  #temoignages::before{ content:""; position:absolute; z-index:-1; inset:0; background:linear-gradient(112deg,rgba(245,247,250,.96) 0%,rgba(245,247,250,.91) 48%,rgba(237,245,243,.82) 100%); pointer-events:none; }
   .testimonial-intro .section-sub{ margin:0; }
   .testimonial-moderation{ display:inline-flex; flex:none; align-items:center; gap:.45rem; color:#17633B; font-size:.75rem; font-weight:700; }
   .testimonial-moderation svg{ width:1.1rem; height:1.1rem; fill:none; stroke:currentColor; stroke-width:2; }
