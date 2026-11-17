@@ -166,6 +166,7 @@
       <div class="row g-4">
         <div class="col-md-6 col-lg-3" v-for="(s, index) in services" :key="s.path" :style="{ '--reveal-delay': (index * 80) + 'ms' }">
           <div class="card-flat service-card" data-reveal>
+            <img class="service-image" :src="s.image" :alt="s.imageAlt" loading="lazy" decoding="async">
             <span class="illustration-icon service-icon" aria-hidden="true"><svg><use :href="'#icon-' + s.icon"></use></svg></span>
             <span class="endpoint-tag"><span aria-hidden="true">↗</span> {{ s.path }}</span>
             <h3>{{ s.title }}</h3>
@@ -186,7 +187,8 @@
       <div class="row g-4">
         <div class="col-md-6 col-lg-3" v-for="(step, index) in workflowSteps" :key="step.title" :style="{ '--reveal-delay': (index * 80) + 'ms' }">
           <div class="card-flat workflow-card" data-reveal>
-          <div class="step-number"><span>0{{ index + 1 }}</span></div>
+            <img class="workflow-image" :src="step.image" :alt="step.imageAlt" loading="lazy" decoding="async">
+            <div class="step-number"><span>0{{ index + 1 }}</span></div>
             <h3>{{ step.title }}</h3>
             <p>{{ step.text }}</p>
           </div>
@@ -203,6 +205,7 @@
       <p class="section-sub mb-4" data-reveal>Six ans de pratique Python et plus de trois ans en entreprise, entre conception backend, qualité logicielle et interfaces.</p>
       <div class="skills-grid mb-4">
         <div v-for="(group, index) in skillGroups" :key="group.name" class="skill-group" data-reveal :style="{ '--reveal-delay': (index * 70) + 'ms' }">
+          <img class="skill-image" :src="group.image" :alt="group.imageAlt" loading="lazy" decoding="async">
           <div class="skill-group-title"><svg class="group-icon" aria-hidden="true"><use :href="'#icon-' + group.icon"></use></svg>{{ group.name }}</div>
           <span class="skill-chip" v-for="sk in group.items" :key="sk">{{ sk }}</span>
         </div>
@@ -219,30 +222,7 @@
           <a v-if="credential.sourceUrl" class="credential-credit" :href="credential.sourceUrl" target="_blank" rel="noopener noreferrer">Image : {{ credential.credit }} ↗</a>
         </article>
       </div>
-    </div>
-  </section>
-
-  <!-- MOCKUPS BOOTSTRAP ET TAILWIND -->
-  <section id="mockups" class="mockup-section">
-    <div class="container">
-      <div class="eyebrow" data-reveal>MAQUETTES INTERACTIVES</div>
-      <h2 class="section-title" data-reveal>Deux façons de donner forme à une interface.</h2>
-      <p class="section-sub mb-5" data-reveal>Exemples isolés pour comparer Bootstrap et Tailwind CSS, chacun chargé depuis son CDN.</p>
-      <div class="row g-4">
-        <article class="col-lg-6" data-reveal>
-          <div class="mockup-shell">
-            <div class="mockup-heading"><span class="mockup-framework-mark bootstrap-mark">B</span><div><strong>Console API</strong><span>Mockup Bootstrap 5 · CDN</span></div><span class="mockup-live"><i></i> Aperçu</span></div>
-            <iframe title="Maquette de tableau de bord avec Bootstrap 5 chargé par CDN" loading="lazy" sandbox="" class="framework-frame" srcdoc="<!doctype html><html lang=&quot;fr&quot;><head><meta charset=&quot;utf-8&quot;><meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;><link href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/css/bootstrap.min.css&quot; rel=&quot;stylesheet&quot; integrity=&quot;sha384-yEPZ7jP9S0QKiUQ0m3jjsO4ProIW7wvR9gXkI7JOGa2XVsw53Yke2bsdkBbjmmiX&quot; crossorigin=&quot;anonymous&quot;><style>body{background:#f3f6fa;color:#182538;font-family:system-ui;padding:22px}.mini-nav{background:#101828 url('https://images.unsplash.com/photo-1790746717373-1226c4697974?auto=format&amp;fit=crop&amp;w=900&amp;q=78') center 44%/cover;color:white;border-radius:14px;padding:13px 16px;box-shadow:inset 0 0 0 100px rgba(16,24,40,.45)}.mini-dot{display:inline-block;width:8px;height:8px;background:#61d5a5;border-radius:100%;margin-right:7px}.metric{border:1px solid #e1e8ef;border-radius:14px}.metric small{color:#607086}.metric strong{font-size:1.35rem}.tag{background:#e5f4eb;color:#17633b}.chart{height:94px;background:linear-gradient(170deg,transparent 45%,#c1e5dd 46%,#c1e5dd 49%,transparent 50%),linear-gradient(135deg,#eef8f6,#fff);border-radius:12px}</style></head><body><div class=&quot;container-fluid p-0&quot;><div class=&quot;mini-nav d-flex justify-content-between align-items-center mb-4&quot;><strong>api<span style=&quot;color:#f2b705&quot;>.</span>cloud</strong><span class=&quot;small&quot;><i class=&quot;mini-dot&quot;></i>Services opérationnels</span></div><div class=&quot;d-flex justify-content-between align-items-end mb-3&quot;><div><small class=&quot;text-secondary&quot;>ESPACE DÉVELOPPEUR</small><h1 class=&quot;h4 mb-0&quot;>Vue d’ensemble</h1></div><span class=&quot;badge tag rounded-pill&quot;>Production</span></div><div class=&quot;row g-3 mb-3&quot;><div class=&quot;col-6&quot;><div class=&quot;metric bg-white p-3 h-100&quot;><small>Requêtes API</small><div><strong>24,8k</strong> <span class=&quot;text-success small&quot;>+12 %</span></div></div></div><div class=&quot;col-6&quot;><div class=&quot;metric bg-white p-3 h-100&quot;><small>Disponibilité</small><div><strong>99,98%</strong></div></div></div></div><div class=&quot;metric bg-white p-3&quot;><div class=&quot;d-flex justify-content-between mb-3&quot;><strong>Activité de l’API</strong><span class=&quot;small text-secondary&quot;>7 derniers jours</span></div><div class=&quot;chart&quot;></div></div></div></body></html>"></iframe>
-          </div>
-        </article>
-        <article class="col-lg-6" data-reveal>
-          <div class="mockup-shell">
-            <div class="mockup-heading"><span class="mockup-framework-mark tailwind-mark">✳</span><div><strong>Vision Lab</strong><span>Mockup Tailwind CSS · Play CDN</span></div><span class="mockup-live"><i></i> Aperçu</span></div>
-            <iframe title="Maquette de suivi d’un modèle de vision artificielle avec Tailwind CSS chargé par CDN" loading="lazy" sandbox="allow-scripts" class="framework-frame" srcdoc="<!doctype html><html lang=&quot;fr&quot;><head><meta charset=&quot;utf-8&quot;><meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;><script src=&quot;https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4&quot;></script></head><body class=&quot;bg-slate-950 p-5 font-sans text-slate-100&quot;><main class=&quot;mx-auto max-w-lg overflow-hidden rounded-3xl border border-white/10 bg-slate-900 shadow-2xl&quot;><div class=&quot;flex items-center justify-between border-b border-white/10 px-5 py-4&quot;><div class=&quot;flex items-center gap-3&quot;><div class=&quot;grid size-10 place-items-center rounded-xl bg-teal-400/15 text-xl text-teal-300&quot;>◉</div><div><p class=&quot;text-xs uppercase tracking-[.18em] text-slate-400&quot;>Computer vision</p><h1 class=&quot;font-semibold&quot;>Vision Lab</h1></div></div><span class=&quot;rounded-full bg-emerald-400/10 px-3 py-1 text-xs font-medium text-emerald-300&quot;>Modèle actif</span></div><div class=&quot;p-5&quot;><div class=&quot;rounded-2xl border border-white/10 bg-gradient-to-br from-indigo-500/20 via-slate-800 to-teal-400/10 p-6&quot;><div class=&quot;mb-5 flex items-center justify-between&quot;><span class=&quot;text-sm text-slate-300&quot;>Reconnaissance d’objets</span><span class=&quot;text-xs text-teal-300&quot;>v2.4.1</span></div><div class=&quot;flex h-36 items-center justify-center rounded-xl border border-dashed border-teal-300/30 bg-slate-950/50&quot;><div class=&quot;text-center&quot;><div class=&quot;mx-auto mb-2 grid size-14 place-items-center rounded-2xl bg-teal-400/10 text-3xl text-teal-200&quot;>⌘</div><p class=&quot;text-sm font-medium&quot;>Analyse en temps réel</p><p class=&quot;text-xs text-slate-400&quot;>Confiance du modèle · 98,4 %</p></div></div></div><div class=&quot;mt-4 grid grid-cols-3 gap-3&quot;><div class=&quot;rounded-xl bg-white/5 p-3&quot;><p class=&quot;text-xs text-slate-400&quot;>Images</p><strong class=&quot;text-lg&quot;>1 284</strong></div><div class=&quot;rounded-xl bg-white/5 p-3&quot;><p class=&quot;text-xs text-slate-400&quot;>Précision</p><strong class=&quot;text-lg text-teal-300&quot;>98,4 %</strong></div><div class=&quot;rounded-xl bg-white/5 p-3&quot;><p class=&quot;text-xs text-slate-400&quot;>Latence</p><strong class=&quot;text-lg&quot;>42 ms</strong></div></div></div><div class=&quot;flex items-center justify-between border-t border-white/10 px-5 py-3 text-xs text-slate-400&quot;><span>Dernière analyse · à l’instant</span><span class=&quot;text-teal-300&quot;>Pipeline prêt ↗</span></div></main></body></html>"></iframe>
-          </div>
-        </article>
-      </div>
-      <p class="mockup-note" data-reveal>Tailwind Play CDN est utilisé ici uniquement pour la démonstration isolée ; le site principal reste compilé avec Vite. Visuel cloud : <a href="https://unsplash.com/photos/server-towers-under-translucent-dome-dF-W2RVhnQo" target="_blank" rel="noopener noreferrer">Brecht Corbeel / Unsplash ↗</a></p>
+      <p class="visual-credits">Visuels : <a href="https://unsplash.com/photos/a-man-sitting-in-front-of-a-computer-wearing-headphones-kQIdjLbCghA" target="_blank" rel="noopener noreferrer">Olumuyiwa Sobowale</a>, <a href="https://unsplash.com/photos/person-coding-on-laptop-workspace-UcYBL5V0xWQ" target="_blank" rel="noopener noreferrer">Nubelson Fernandes</a> et <a href="https://unsplash.com/photos/server-towers-under-translucent-dome-dF-W2RVhnQo" target="_blank" rel="noopener noreferrer">Brecht Corbeel</a> / Unsplash.</p>
     </div>
   </section>
 
@@ -254,6 +234,7 @@
       <div class="row">
         <div class="col-lg-9">
           <div class="card-flat project-card" data-reveal>
+            <img class="project-card-image" src="https://images.unsplash.com/photo-1618477388954-7852f32655ec?auto=format&amp;fit=crop&amp;w=1400&amp;q=78" alt="Espace de travail numérique avec du code à l’écran." loading="lazy" decoding="async">
             <p class="project-copy">
               Vous avez déjà le logo, les maquettes et les spécifications ? Je peux prendre en charge le développement complet de votre site web ou application mobile — vous fournissez le design et le cahier des charges, je m'occupe de l'implémentation technique de bout en bout.
             </p>
@@ -273,28 +254,34 @@
       <div class="row g-4">
         <div class="col-md-6 col-lg-3" v-for="(p, i) in plans" :key="p.name" :style="{ '--reveal-delay': (i * 70) + 'ms' }">
           <div class="price-card" :class="{'is-featured': i===1}" data-reveal>
-            <div class="plan-name">{{ p.name }}</div>
-            <div class="price">{{ p.price.toLocaleString('fr-FR') }} <small>{{ p.unit }}</small></div>
-            <div class="price-note">{{ p.note }}</div>
-            <ul>
-              <li v-for="f in p.features" :key="f">{{ f }}</li>
-            </ul>
-            <div class="deposit-hint">Acompte à la réservation : {{ Math.round(p.price*0.7).toLocaleString('fr-FR') }} FCFA (70%)</div>
-            <button class="btn btn-signal w-100" @click="openReserveModal(p)">Réserver</button>
+            <img class="plan-image" :src="p.image" :alt="p.imageAlt" loading="lazy" decoding="async">
+            <div class="price-content">
+              <div class="plan-name">{{ p.name }}</div>
+              <div class="price">{{ p.price.toLocaleString('fr-FR') }} <small>{{ p.unit }}</small></div>
+              <div class="price-note">{{ p.note }}</div>
+              <ul>
+                <li v-for="f in p.features" :key="f">{{ f }}</li>
+              </ul>
+              <div class="deposit-hint">Acompte à la réservation : {{ Math.round(p.price*0.7).toLocaleString('fr-FR') }} FCFA (70%)</div>
+              <button class="btn btn-signal w-100" @click="openReserveModal(p)">Réserver</button>
+            </div>
           </div>
         </div>
         <div class="col-md-6 col-lg-3">
           <div class="price-card">
-            <div class="plan-name">Projet sur mesure</div>
-            <div class="price" style="font-size:1.3rem;">Prix à définir</div>
-            <div class="price-note">Ton besoin ne correspond à aucun forfait ci-dessus ?</div>
-            <ul>
-              <li>On discute de ton besoin précis</li>
-              <li>Je te propose un prix</li>
-              <li>Tu valides avec un acompte de 70%</li>
-              <li>Facture normalisée à la clé</li>
-            </ul>
-            <button class="btn btn-outline-wire w-100" @click="openQuoteModal">Demander un devis</button>
+            <img class="plan-image" src="https://images.unsplash.com/photo-1790746717373-1226c4697974?auto=format&amp;fit=crop&amp;w=900&amp;q=76" alt="Infrastructure cloud pour une réalisation sur mesure." loading="lazy" decoding="async">
+            <div class="price-content">
+              <div class="plan-name">Projet sur mesure</div>
+              <div class="price" style="font-size:1.3rem;">Prix à définir</div>
+              <div class="price-note">Ton besoin ne correspond à aucun forfait ci-dessus ?</div>
+              <ul>
+                <li>On discute de ton besoin précis</li>
+                <li>Je te propose un prix</li>
+                <li>Tu valides avec un acompte de 70%</li>
+                <li>Facture normalisée à la clé</li>
+              </ul>
+              <button class="btn btn-outline-wire w-100" @click="openQuoteModal">Demander un devis</button>
+            </div>
           </div>
         </div>
       </div>
@@ -324,6 +311,7 @@
           </div>
 
           <div v-if="trackedOrder" class="card-flat mt-4">
+            <img class="order-card-image" src="https://images.unsplash.com/photo-1790746717373-1226c4697974?auto=format&amp;fit=crop&amp;w=1000&amp;q=76" alt="Infrastructure numérique illustrant le suivi des services." loading="lazy" decoding="async">
             <div class="endpoint-tag">{{ trackedOrder.public_ref }}</div>
             <h3>{{ trackedOrder.is_custom ? trackedOrder.custom_description : trackedOrder.plan_name }}</h3>
 
@@ -364,6 +352,7 @@
       <div v-if="testimonials.length" class="row g-4 mb-5" data-reveal>
         <div class="col-md-6 col-lg-4" v-for="t in testimonials" :key="t.id">
           <div class="card-flat">
+            <img class="testimonial-image" src="https://images.unsplash.com/photo-1730130054404-c2bd8e7038c2?auto=format&amp;fit=crop&amp;w=1000&amp;q=76" alt="Espace de travail numérique illustrant un projet client." loading="lazy" decoding="async">
             <div class="stars" v-if="t.rating">{{ '★'.repeat(t.rating) }}<span style="color:var(--line)">{{ '★'.repeat(5 - t.rating) }}</span></div>
             <p style="color:var(--text); font-size:.92rem;">{{ t.message }}</p>
             <p style="color:var(--muted); font-family:var(--mono); font-size:.8rem; margin-top:.8rem;">— {{ t.client_name }}</p>

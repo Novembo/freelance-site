@@ -3,7 +3,7 @@
 [![CI](https://github.com/Novembo/freelance-site/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Novembo/freelance-site/actions/workflows/ci.yml)
 [![GitHub Pages](https://github.com/Novembo/freelance-site/actions/workflows/deploy-pages.yml/badge.svg?branch=main)](https://github.com/Novembo/freelance-site/actions/workflows/deploy-pages.yml)
 
-Site vitrine freelance **Développeur Full-Stack Python & IA** : interface en **HTML, CSS et JavaScript** (Vue 3, Bootstrap 5 et Vite) et API REST en **Python** (FastAPI, SQLite). Vue et Bootstrap sont compilés localement ; les polices DM Sans et Space Grotesk sont chargées depuis Google Fonts, et le SDK de paiement Kkiapay depuis son fournisseur. Une section de maquettes isolées montre aussi Bootstrap et Tailwind CSS via CDN. Le projet couvre les demandes de devis, les commandes, les témoignages et la vérification des transactions côté serveur.
+Site vitrine freelance **Développeur Full-Stack Python & IA** : interface en **HTML, CSS et JavaScript** (Vue 3, Bootstrap 5 et Vite) et API REST en **Python** (FastAPI, SQLite). Vue et Bootstrap sont compilés localement ; les polices DM Sans et Space Grotesk sont chargées depuis Google Fonts, et le SDK de paiement Kkiapay depuis son fournisseur. Le projet couvre les demandes de devis, les commandes, les témoignages et la vérification des transactions côté serveur.
 
 Ce projet est pensé pour montrer notamment :
 - que je conçois et livre des API backend fiables,
@@ -13,7 +13,7 @@ Ce projet est pensé pour montrer notamment :
 - qu’une maquette interactive permet de visualiser le parcours 70/30 sans créer de commande, envoyer de requête ou collecter de données de paiement.
 
 - **Langages :** HTML · CSS · JavaScript · Python
-- **Technologies :** Vue 3 · Bootstrap 5 · Tailwind CSS (maquette CDN) · Vite · Google Fonts (DM Sans, Space Grotesk) · FastAPI · SQLite · Kkiapay · pytest · Docker · GitHub Actions
+- **Technologies :** Vue 3 · Bootstrap 5 · Vite · Google Fonts (DM Sans, Space Grotesk) · FastAPI · SQLite · Kkiapay · pytest · Docker · GitHub Actions
 
 ## Démo déployée
 
