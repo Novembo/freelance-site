@@ -229,11 +229,13 @@ createApp({
       const appRoot = document.getElementById('app');
       const targets = appRoot ? appRoot.querySelectorAll('[data-reveal]') : [];
       if (!targets.length) return;
+      appRoot.querySelectorAll('.count-up[data-count]').forEach(counter => { counter.textContent = '0'; });
 
       this.revealObserver = new window.IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('is-visible');
+            if (entry.target.classList.contains('proof-metric')) this.countUpMetric(entry.target);
             observer.unobserve(entry.target);
           }
         });
@@ -241,6 +243,22 @@ createApp({
 
       document.documentElement.classList.add('motion-ready');
       targets.forEach(target => this.revealObserver.observe(target));
+    },
+    countUpMetric(metric){
+      const counter = metric.querySelector('.count-up[data-count]:not([data-counted])');
+      if (!counter) return;
+      const target = Number(counter.dataset.count);
+      if (!Number.isFinite(target)) return;
+      counter.dataset.counted = 'true';
+      const duration = 1100;
+      const start = performance.now();
+      const tick = now => {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        counter.textContent = String(Math.round(target * eased));
+        if (progress < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
     },
     observeNewReveals(){
       if (!this.revealObserver) return;
