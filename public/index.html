@@ -222,7 +222,7 @@
           <a v-if="credential.sourceUrl" class="credential-credit" :href="credential.sourceUrl" target="_blank" rel="noopener noreferrer">Image : {{ credential.credit }} ↗</a>
         </article>
       </div>
-      <p class="visual-credits">Visuels : <a href="https://unsplash.com/photos/a-man-sitting-in-front-of-a-computer-wearing-headphones-kQIdjLbCghA" target="_blank" rel="noopener noreferrer">Olumuyiwa Sobowale</a>, <a href="https://unsplash.com/photos/person-coding-on-laptop-workspace-UcYBL5V0xWQ" target="_blank" rel="noopener noreferrer">Nubelson Fernandes</a> et <a href="https://unsplash.com/photos/server-towers-under-translucent-dome-dF-W2RVhnQo" target="_blank" rel="noopener noreferrer">Brecht Corbeel</a> / Unsplash.</p>
+      <p class="visual-credits">Visuels photographiques issus d’<a href="https://unsplash.com/license" target="_blank" rel="noopener noreferrer">Unsplash</a>.</p>
     </div>
   </section>
 
@@ -269,7 +269,7 @@
         </div>
         <div class="col-md-6 col-lg-3">
           <div class="price-card">
-            <img class="plan-image" src="https://images.unsplash.com/photo-1790746717373-1226c4697974?auto=format&amp;fit=crop&amp;w=900&amp;q=76" alt="Infrastructure cloud pour une réalisation sur mesure." loading="lazy" decoding="async">
+            <img class="plan-image" src="https://images.unsplash.com/photo-1565350897149-38dfafa81d83?auto=format&amp;fit=crop&amp;w=900&amp;q=76" alt="Équipe créative réunie autour d’ordinateurs pour un projet sur mesure." loading="lazy" decoding="async">
             <div class="price-content">
               <div class="plan-name">Projet sur mesure</div>
               <div class="price" style="font-size:1.3rem;">Prix à définir</div>
@@ -311,7 +311,7 @@
           </div>
 
           <div v-if="trackedOrder" class="card-flat mt-4">
-            <img class="order-card-image" src="https://images.unsplash.com/photo-1790746717373-1226c4697974?auto=format&amp;fit=crop&amp;w=1000&amp;q=76" alt="Infrastructure numérique illustrant le suivi des services." loading="lazy" decoding="async">
+            <img class="order-card-image" src="https://images.unsplash.com/photo-1726066012801-14d892021339?auto=format&amp;fit=crop&amp;w=1000&amp;q=76" alt="Téléphone affichant une interface de paiement mobile." loading="lazy" decoding="async">
             <div class="endpoint-tag">{{ trackedOrder.public_ref }}</div>
             <h3>{{ trackedOrder.is_custom ? trackedOrder.custom_description : trackedOrder.plan_name }}</h3>
 
@@ -352,7 +352,7 @@
       <div v-if="testimonials.length" class="row g-4 mb-5" data-reveal>
         <div class="col-md-6 col-lg-4" v-for="t in testimonials" :key="t.id">
           <div class="card-flat">
-            <img class="testimonial-image" src="https://images.unsplash.com/photo-1730130054404-c2bd8e7038c2?auto=format&amp;fit=crop&amp;w=1000&amp;q=76" alt="Espace de travail numérique illustrant un projet client." loading="lazy" decoding="async">
+            <img class="testimonial-image" src="https://images.unsplash.com/photo-1633114128814-11fac33f707b?auto=format&amp;fit=crop&amp;w=1000&amp;q=76" alt="Équipe en réunion pour discuter d’un projet." loading="lazy" decoding="async">
             <div class="stars" v-if="t.rating">{{ '★'.repeat(t.rating) }}<span style="color:var(--line)">{{ '★'.repeat(5 - t.rating) }}</span></div>
             <p style="color:var(--text); font-size:.92rem;">{{ t.message }}</p>
             <p style="color:var(--muted); font-family:var(--mono); font-size:.8rem; margin-top:.8rem;">— {{ t.client_name }}</p>
